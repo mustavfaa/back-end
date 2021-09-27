@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+{% if request.user.is_authenticated %}
+{% block content %}
+{% load avatar_del_media %}
+<nav aria-label="breadcrumb" class="bread-nav">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item active" aria-current="page">{% trans "Рабочий стол" %}</li>
+  </ol>
+</nav>
+ <div class="bg-showcases {% if is_admin %}container-fluid{% else %}container{% endif %} pt-5 pb-5">
+     <div class="row">
+         <div class="{% if is_admin %}col-md-9{% else %}col-md-12{% endif %}">
+                <div class="">
+                    <div class="row" style="display: flex; justify-content: center;">
+                        <div class="col-md-12 main-icons">
+                            {% load simple_header %}
+                            {% simple_header user %}
+                        </div>
+
+                    </div>
+                </div>
+         </div>
+         <div class="col-md-3">
+             <div class="card_right_main">
+                {% if is_admin %}
+                {{ school_menu|safe }}
+                {% endif %}
+             </div>
+         </div>
+    </div>
+</div>
+{% endblock %}
+{% endif %}

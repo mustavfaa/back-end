@@ -1,0 +1,551 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load bootstrap %}
+{% load static %}
+{% block css %}
+<style>
+	.modalf {
+		padding-top: 129px;
+		display: block;
+		padding-right: 15px;
+	}
+    .bag-table1 tbody tr td {
+        padding: 3px !important;
+    }
+
+    .bag-table1 thead tr th:nth-child(1) {
+      width: 3% !important;
+    }
+
+    .bag-table1 thead tr th:nth-child(2) {
+      width: 7% !important;
+    }
+
+    .bag-table1 thead tr th:nth-child(3) {
+      width: 3% !important;
+    }
+
+    .bag-table1 thead tr th:nth-child(4) {
+      width: 40% !important;
+    }
+    .bag-table1 thead tr th:nth-child(5) {
+      width: 10% !important;
+    }
+    .bag-table1 thead tr th:nth-child(6) {
+      width: 4% !important;
+    }
+    .bag-table1 thead tr th:nth-child(7) {
+      width: 4% !important;
+    }
+
+    .bag-table thead tr th:nth-child(5) {
+      width: 30% !important;
+    }
+    .bag-table thead tr th:nth-child(6) {
+        width: 12% !important;
+    }
+    .bag-table thead tr th:nth-child(7) {
+      width: 12% !important;
+    }
+    .bag-table thead tr th:nth-child(8) {
+        width: 12% !important;
+    }
+    .this_edit {
+        background-color: red;
+    }
+</style>
+{% endblock %}
+{% block content %}
+<div id="Invoice" >
+    <div id="before-load" v-if="loading">
+        <i class="fa fa-spinner fa-spin"></i>
+    </div>
+    <nav aria-label="breadcrumb" class="bread-nav">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="{% url 'home:index' %}">{% trans 'Рабочий стол' %}</a>
+          </li>
+          <li class="breadcrumb-item" aria-current="page">
+              <a href="{% url 'schol_library:hl_invoices' %}">{% trans 'Накладные' %}</a>
+          </li>
+          <li class="breadcrumb-item" :class="{active: !statusInvoice}" aria-current="page">
+              <a href="{% url 'schol_library:act_write_off_invoice' %}">{% trans 'Акты на списание' %}</a>
+          </li>
+          <li class="breadcrumb-item" :class="{active: statusInvoice}" aria-current="page" v-if="statusInvoice">
+              {% trans 'Акт на списание №' %}{(invoice.idx)}
+          </li>
+        </ol>
+    </nav>
+    <div class="container-fluid">
+        <!--Создание и редактирование накладной-->
+        <div class="row pt-2" v-if="createI">
+            <div class="col-12 pb-2">
+                 <button
+                    type="button"
+                    data-hover="tooltip"
+                    data-placement="bottom"
+                    title="{% trans 'Назад' %}"
+                    class="btn_adds btn-fcon"
+                    v-if="!loading"
+                    @click="Clear()"
+                  >
+                    <i class="fa fa-arrow-circle-o-left" aria-hidden="true"></i>
+                  </button>
+
+            </div>
+             <div class="col-3 text-left">
+                 <h5>{% trans 'Номер акта №' %}</h5>
+             </div>
+             <div class="col-5 text-left">
+                 <input type="text" class="form-control" v-model="formCreate.idx">
+             </div>
+             <div class="col-1 text-center">
+                 <h5> {% trans 'от' %}</h5>
+             </div>
+             <div class="col-3 text-left">
+
+                  <vuejs-datepicker
+                          :input-class="formStyle"
+                          :disabled-dates="disabledDates"
+                          :format="customFormatter"
+                          :value="formCreate.date_write"
+                          v-model="formCreate.date_write"
+                          name="uniquename"
+                          :language="ru"
+                          >
+                  </vuejs-datepicker>
+             </div>
+
+             <div class="col-3 pt-3 text-left">
+                 <h5>{% trans 'Основание' %}</h5>
+             </div>
+             <div class="col-4 pt-3 text-left">
+                 <textarea type="text" class="form-control" v-model="formCreate.footing"></textarea>
+             </div>
+             <div class="col-1 pt-4 text-center">
+                 <h5>{% trans 'Члены комиссии' %}</h5>
+             </div>
+             <div class="col-3 pt-3 text-left">
+                 <textarea type="text" class="form-control" v-model="formCreate.members_of_commission"> </textarea>
+             </div>
+            <div class="col-3 pt-3 text-left">
+                <h5>{% trans 'Школа:' %}</h5>
+            </div>
+            <div class="col-9 pt-3 text-left">
+                {% if request.user.libraryuser.school %} {{ request.user.libraryuser.school.name }} {% else %} {% trans 'Не найдено место работы' %} {% endif %}
+            </div>
+
+
+            <div class="col-12 pt-2" v-if="formCreate.idx && formCreate.date_write && formCreate.footing && formCreate.members_of_commission">
+                <div class="alert alert-warning alert-dismissible fade" :class="{'show': errors.length > 0}">
+                    <p v-for="item in errors">{(item[0])} <br></p>
+                    <button type="button" class="close" @click="errors=''">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <button
+                    class="btn_adds btn-fcon"
+                    data-hover="tooltip"
+                    data-placement="bottom"
+                    title="{% trans 'Завершается'%}"
+                    v-if="loading"
+                >
+                    <i class="fa fa-circle-o-notch fa-spin"></i>
+                </button>
+                <button v-else @click="createInvoice" class="btn_create col-md-3">{% trans 'Создать' %}</button>
+            </div>
+        </div>
+        <div class="row" v-else>
+            <div class="col-12 pt-10" v-if="!statusInvoice">
+                <h1>{% trans 'Акты на списание книг' %}</h1>
+                <button @click="createI=true" class="btn_create col-md-2">{% trans 'Создать Акт на списание' %}</button>
+            </div>
+            <div class="col-12">
+                <table class="responstable bag-table1" v-if="!statusInvoice">
+
+                    <thead>
+                        <th scope="col">#</th>
+                        <th scope="col">{% trans 'Дата' %}</th>
+                        <th scope="col">{% trans 'Номер' %}</th>
+                        <th scope="col">{% trans 'Акт' %}</th>
+                        <th scope="col">{% trans 'Сумма' %}</th>
+                        <th scope="col">{% trans 'Статус' %}</th>
+                        <th scope="col">{% trans 'Выбрать' %}</th>
+                        <th scope="col">{% trans 'Удалить' %}</th>
+                        <th scope="col">{% trans 'Печать' %}</th>
+                    </thead>
+                    <tbody>
+                        <tr v-for="(item, index) in invoices" :key='index'>
+                            <td>{( index + 1 )}</td>
+                            <td>{( item.date_write )}</td>
+                            <td>{( item.id )}</td>
+                            <td v-if="item.idx" style="text-align: left">{( item.idx )}</td>
+                            <td v-else>-----</td>
+                            <td style="text-align: right">
+                                {(item.amount)}
+                            </td>
+                            <td style="text-align: right" class="text-center">
+                                <i v-if="item.status" aria-hidden="true" class="fa fa-check iconfa_check"></i>
+                                <i v-else aria-hidden="true" class="fa fa-minus-circle iconfa_minus"></i>
+                            </td>
+                            <td is="Button" :getinvoice="GetInvoice" :item="item">
+
+                            </td>
+                            <td>
+                                <button v-on:click="Deleted(item.id)" type="button" data-hover="tooltip" data-placement="bottom" class="m-auto btn_adds btn-fcon">
+                                    <i aria-hidden="true" class="fa fa-trash-o"></i>
+                                </button>
+                            </td>
+                            <td>
+                                <button v-on:click="downloadPDF(item.id)" type="button" data-hover="tooltip" data-placement="bottom" class="m-auto btn_adds btn-fcon">
+                                    <i aria-hidden="true" class="fa fa-print"></i>
+                                </button>
+                            </td>
+                        </tr>
+                      </tbody>
+                </table>
+                <p  v-if="!statusInvoice">{% trans 'Всего сумма:'%} {(Summs)} {% trans 'тенге' %}</p>
+            </div>
+
+            <div v-if="statusInvoice" class="pt-5 container-fluid">
+                <div class="row">
+                     <div class="col-3 text-left">
+                         <h5>{% trans 'Номер акта №' %}</h5>
+                     </div>
+                     <div class="col-5 text-left">
+                         <input type="text" class="form-control" v-model="invoice.idx">
+                     </div>
+                     <div class="col-1 text-center">
+                         <h5> {% trans 'от' %}</h5>
+                     </div>
+                     <div class="col-3 text-left">
+                          <vuejs-datepicker
+                                  :input-class="formStyle"
+                                  :disabled-dates="disabledDates"
+                                  :format="customFormatter"
+                                  :value="invoice.date_write"
+                                  v-model="invoice.date_write"
+                                  name="uniquename"
+                                  :language="ru"
+                                  >
+                          </vuejs-datepicker>
+                     </div>
+
+                     <div class="col-3 pt-3 text-left">
+                         <h5>{% trans 'Основание' %}</h5>
+                     </div>
+                     <div class="col-4 pt-3 text-left">
+                         <textarea type="text" class="form-control" v-model="invoice.footing"></textarea>
+                     </div>
+                     <div class="col-1 pt-4 text-center">
+                         <h5>{% trans 'Члены комиссии' %}</h5>
+                     </div>
+                     <div class="col-3 pt-3 text-left">
+                         <textarea type="text" class="form-control" v-model="invoice.members_of_commission"></textarea>
+                     </div>
+                    <div class="col-3 pt-3 text-left">
+                         <h5>{% trans 'Школа:' %}</h5>
+                    </div>
+                    <div class="col-9 pt-3 text-left">
+                        {% if request.user.libraryuser.school %} {{ request.user.libraryuser.school.name }} {% else %} {% trans 'Не найдено место работы' %} {% endif %}
+                    </div>
+                </div>
+                <br>
+
+
+                <div class="col-md-12" v-if="!addE || ready_s">
+                    <div class="alert alert-warning alert-dismissible fade" :class="{'show': errors.length > 0}">
+                        <p v-for="item in errors">{(item[0])} <br></p>
+                        <button type="button" class="close" @click="errors=''">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="row">
+                        <div class="col-1">
+                            <button
+                                v-if="!ready_s"
+                                title="{% trans 'Добавить' %}"
+                                type="button"
+                                data-hover="tooltip"
+                                data-placement="bottom"
+                                class="btn_adds btn-fcon"
+                                @click="load33(), addE=true"
+                              >
+                                  <i v-if="!loading3" class="fa" :class="{'fa-list': !addE, 'fa-minus-square': addE }" aria-hidden="true"></i>
+                                  <i v-else="loading3" class="fa fa-circle-o-notch fa-spin"></i>
+                              </button>
+                        </div>
+                        <div class="col-1">
+                            <button
+                                    data-hover="tooltip"
+                                    data-placement="bottom"
+                                    class="btn_adds btn-fcon"
+                                    title="{% trans 'Готово' %}"
+                                    v-if="!loading"
+                                    @click="Ready()">
+                                  <i v-if="!loading2" aria-hidden="true" class="fa" :class="{'fa-check': !ready_s, 'fa-pencil': ready_s}"></i>
+                                  <i v-if="loading2" class="fa fa-circle-o-notch fa-spin"></i>
+                            </button>
+                        </div>
+                        <div class="col-1">
+                            <a
+                                type="button"
+                                data-hover="tooltip"
+                                data-placement="bottom"
+                                title="{% trans 'Назад' %}"
+                                class="btn_adds btn-fcon"
+                                href="{% url 'schol_library:act_write_off_invoice' %}"
+                              >
+                                <i class="fa fa-arrow-circle-o-left" aria-hidden="true"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <table class="responstable bag-table" id="table_id2">
+                      <thead>
+                        <th scope="col">#</th>
+                        <th scope="col">{% trans 'Класс' %}</th>
+                        <th scope="col">{% trans 'Учебная дисциплина' %}</th>
+                        <th scope="col">{% trans 'Язык издания' %}</th>
+                        <th scope="col">{% trans 'Наименование издания' %}</th>
+                        <th scope="col">{% trans 'Количество' %}</th>
+                        <th scope="col">{% trans 'Цена' %}</th>
+                        <th scope="col">{% trans 'Сумма' %}</th>
+                        <th scope="col" v-if="!ready_s">{% trans 'Добавить/Удалить' %}</th>
+                      </thead>
+                      <tbody>
+                        <tr v-for="(datamodel, index) in editions_val">
+                            <td scope="row" :class="{this_edit: datamodel.status2}">{( index + 1 )}</td>
+                            <!--<td>{(datamodel.klass.slice(0, 7) )}</td>-->
+                            <td>{(datamodel.edition.klass )}</td>
+                            <td>{(datamodel.edition.subject )}</td>
+                            <td>{(datamodel.edition.language )}</td>
+                            <td class="row text-left">
+                                {(datamodel.edition.name )} / {( datamodel.edition.metodology_complex )} / {( datamodel.edition.publish_date )}<br>
+                                {(datamodel.edition.author)} / {(datamodel.edition.publisher)} / {(datamodel.edition.study_direction)} /{% trans 'ISBN' %}: {(datamodel.edition.isbn)}
+                            </td>
+                            <td class="row">
+                                {(datamodel.quantity)}
+                            </td>
+
+                               <td>
+
+                               {(datamodel.amount / datamodel.quantity)}
+                            </td>
+                            <td>
+                                {(datamodel.amount)}
+                            </td>
+
+                            <td v-if="!ready_s">
+                                <button v-if="!datamodel.loading2" type="button" data-hover="tooltip" data-placement="bottom" class="btn_adds btn-fcon" @click="delEinvoice(datamodel)">
+                                    <i aria-hidden="true" class="fa fa-trash-o"></i>
+                                </button>
+                                <i v-if="datamodel.loading2" class="fa fa-circle-o-notch fa-spin"></i>
+                            </td>
+                          </tr>
+                      </tbody>
+                    </table>
+                      <p>{% trans 'Итого:'%} {(SummEditions.amount)} {% trans 'тенге' %}</p>
+                      <p>{% trans 'Всего отпущено:'%} {(SummEditions.q_amount)} {% trans 'шт' %} {% trans 'на сумму:'%} {(SummEditions.amount)} {% trans 'тенге' %}</p>
+                </div>
+
+
+                <div class="col-md-12" v-if="addE && !invoice.status">
+                    <div class="row">
+                      <div class="col-1">
+                        <multiselect
+                          v-model="klass"
+                          :options="klasses"
+                          :custom-label="nameKlass"
+                          placeholder="{% trans 'Класс' %}"
+                          :show-labels="false"
+                          label="name"
+                          track-by="name"
+                        ></multiselect>
+                      </div>
+                      <div class="col-2">
+                        <multiselect
+                            v-model="subject"
+                            :options="subjects"
+                            placeholder="{% trans 'Учебная дисциплина' %}"
+                            :show-labels="false"
+                            label="name"
+                            track-by="name">
+                        </multiselect>
+                      </div>
+                      <div class="col-3">
+                        <multiselect
+                          v-model="language"
+                          :options="languages"
+                          placeholder="{% trans 'Язык издания' %}"
+                          :show-labels="false"
+                          label="name"
+                          track-by="name"
+                        ></multiselect>
+                      </div>
+                      <div class="col-3">
+                        <multiselect
+                          v-model="edition"
+                          :options="editionss"
+                          placeholder="{% trans 'Наименование издания' %}"
+                          :show-labels="false"
+                          label="name"
+                          track-by="name"
+                        ></multiselect>
+                      </div>
+                      <div class="col-md-2 d-flex justify-content-end">
+                          <a
+                            type="button"
+                            data-hover="tooltip"
+                            data-placement="bottom"
+                            title="{% trans 'Назад' %}"
+                            class="btn_adds btn-fcon"
+                            href="{% url 'schol_library:act_write_off_invoice' %}"
+                          >
+                            <i class="fa fa-arrow-circle-o-left" aria-hidden="true"></i>
+                          </a>
+
+                          <button
+                            title="{% trans 'Мой список' %}"
+                            type="button"
+                            data-hover="tooltip"
+                            data-placement="bottom"
+                            class="btn_adds btn-fcon"
+                            @click="load33(), addE=false"
+
+                          >
+                              <i v-if="!loading3" class="fa" :class="{'fa-list': !addE, 'fa-minus-square': addE }" aria-hidden="true"></i>
+                              <i v-else="loading3" class="fa fa-circle-o-notch fa-spin"></i>
+                          </button>
+
+                          <button
+                                  data-hover="tooltip"
+                                  data-placement="bottom"
+                                  class="btn_adds btn-fcon"
+                                  title="{% trans 'Готово' %}"
+                                  v-if="!loading"
+                                  @click="Ready()">
+                              <i v-if="!loading2" aria-hidden="true" class="fa" :class="{'fa-check': !invoice.status, 'fa-pencil': invoice.status}"></i>
+                              <i v-if="loading2" class="fa fa-circle-o-notch fa-spin"></i>
+                          </button>
+                      </div>
+
+
+                      <div class="col-12 pt-5" v-if="addE">
+                        <table class="responstable bag-table" id="table_id">
+                          <thead>
+                            <th scope="col">#</th>
+                            <th scope="col">{% trans 'Класс' %}</th>
+                            <th scope="col">{% trans 'Учебная дисциплина' %}</th>
+                            <th scope="col">{% trans 'Язык издания' %}</th>
+                            <th scope="col">{% trans 'Наименование издания' %}</th>
+                            <th scope="col">Цена</th>
+
+                            <th scope="col">{% trans 'Количество остаток' %}</th>
+                                                        <th scope="col">{% trans 'Сумма остаток' %}</th>
+                            <th scope="col">{% trans 'Количество на списание' %}</th>
+                            <th scope="col">{% trans 'Сумма списания' %}</th>
+
+                            <th scope="col" v-if="!ready_s">{% trans 'Добавить/Удалить' %}</th>
+                          </thead>
+                          <tbody>
+                            <tr
+                              is="EditionsList"
+                              v-for="(item, index) in filterEditions2"
+                              :index="index"
+                              :key="index"
+                              :datamodel="item"
+                              :invoice="invoice"
+                              :loading3="loading3"
+                              :del_edition_val="DelEditionsVal"
+                              :get_edition_val="GetEditionsVal"
+                            ></tr>
+                          </tbody>
+                        </table>
+                          <p>{% trans 'Итого:'%} {(SummEditions.amount)} {% trans 'тенге' %}</p>
+                          <p>{% trans 'Всего отпущено:'%} {(SummEditions.q_amount)} {% trans 'шт' %} {% trans 'на сумму:'%} {(SummEditions.amount)} {% trans 'тенге' %}</p>
+                      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/x-template" id="button_g">
+<td>
+    <button
+        type="button"
+        data-hover="tooltip"
+        data-placement="bottom"
+        title="{% trans 'Редактирование' %}"
+        class="btn_adds btn-fcon m-auto"
+        id="giveInvoice"
+        @click="getinvoice(item.id), loading=true"
+        v-if="!loading"
+      >
+        <i aria-hidden="true" class="fa fa-pencil"></i>
+    </button>
+    <button
+        class="btn_adds btn-fcon"
+        data-hover="tooltip"
+        data-placement="bottom"
+        title="{% trans 'Завершается'%}"
+        v-if="loading"
+    >
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+      </button>
+</td>
+</script>
+
+{# Компонент книг #}
+<script type="text/x-template" id="editions-list">
+  <tr :class="{'td_background': datamodel.style}">
+    <td scope="row">{( index + 1 )}
+        <!--{(datamodel.idx)} - {(datamodel.id)}-->
+    </td>
+    <!--<td>{(datamodel.klass.slice(0, 7) )}</td>-->
+    <td>{(datamodel.edition.klass )}</td>
+    <td>{(datamodel.edition.subject )}</td>
+    <td>{(datamodel.edition.language )}</td>
+    <td class="row text-left">
+
+        {(datamodel.edition.name )} / {( datamodel.edition.metodology_complex )} / {( datamodel.edition.publish_date )}<br>
+        {(datamodel.edition.author)} / {(datamodel.edition.publisher)} / {(datamodel.edition.study_direction)} /{% trans 'ISBN' %}: {(datamodel.edition.isbn)}
+    </td>
+    <td>{(datamodel.price)}</td>
+    <td>{(datamodel.has )}</td>
+      <td class="row">
+          {(datamodel.summ)}
+      </td>
+      <td class="row" v-if="!ready_s && !datamodel.style">
+          <input type="number" class="form-control"
+                 :class="{'is-invalid': datamodel.quantity < 0 || !datamodel.quantity || datamodel.quantity > datamodel.has}"
+                 min="1" v-model="datamodel.quantity">
+      </td>
+      <td v-else>
+          {(datamodel.quantity)}
+      </td>
+      <td class="row">
+          {(datamodel.price * datamodel.quantity)}
+      </td>
+      <td class="row" v-if="!ready_s">
+          <button v-if="delStatus(datamodel.idx) && !loading2  && !datamodel.style" type="button" data-hover="tooltip"
+                  data-placement="bottom" class="btn_adds btn-fcon" @click="delEinvoice(datamodel.idx)">
+            <i aria-hidden="true" class="fa fa-trash-o"></i>
+        </button>
+        <button v-if="!delStatus(datamodel.idx)  && !loading2" type="button" data-hover="tooltip" data-placement="bottom" class="btn_adds btn-fcon" @click="addEdition(datamodel)">
+            <i aria-hidden="true" class="fa fa-plus-square"></i>
+        </button>
+        <i v-if="loading2" class="fa fa-circle-o-notch fa-spin"></i>
+    </td>
+  </tr>
+</script>
+{# конец Компонент книг #}
+{% endblock %}
+{% block scripts %}
+<script src="https://unpkg.com/vuejs-datepicker"></script>
+<script src="https://unpkg.com/vuejs-datepicker/dist/locale/translations/ru.js"></script>
+<script src="{% static 'js/moment.min.js' %}"></script>
+    <script src="{% static 'my_js/head_librarian/act_write_off37.js' %}"></script>
+{% endblock %}

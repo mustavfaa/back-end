@@ -1,0 +1,91 @@
+{% extends 'base.html' %} {% load i18n %} {% load bootstrap %} {% load static %}
+{% if request.user.is_authenticated %}
+{% block css %}
+<style>
+    .bag-table thead tr th:nth-child(5) {
+      width: 50% !important;
+    }
+    .bag-table thead tr th:nth-child(6) {
+      width: 10% !important;
+    }
+</style>
+
+{% endblock %}
+{% block content %}
+{% if messages %}
+{%for message in messages %}
+    <h1>{{ message | safe }}!</h1>
+    <a href="{% url 'home:index' %}">Венуться на главную страницу</a>
+{% endfor %}
+{% else %}
+<div>
+  {# Навигация #}
+  <nav aria-label="breadcrumb" class="bread-nav">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item">
+        <a href="{% url 'home:index' %}">{% trans 'Рабочий стол' %}</a>
+      </li>
+      <li class="breadcrumb-item active" aria-current="page">
+        {% trans 'Накладные' %}
+      </li>
+    </ol>
+  </nav>
+</div>
+<div class="container-fluid">
+    <div class="row">
+        <table class="responstable bag-table" v-if="!statusInvoice">
+              <thead>
+                <th scope="col">{% trans 'Наименование' %}</th>
+                <th scope="col">{% trans 'Выбрать' %}</th>
+              </thead>
+              <tbody>
+{#                <tr>#}
+{#                    <td>{% trans 'Электронные накладные' %}</td>#}
+{#                    <td>#}
+{#                        <a#}
+{#                            href="{% url 'schol_library:hl_invoice' %}"#}
+{#                            data-hover="tooltip"#}
+{#                            data-placement="bottom"#}
+{#                            class="btn_adds btn-fcon"#}
+{#                          >#}
+{#                            <i aria-hidden="true" class="fa fa-chevron-circle-right "></i>#}
+{#                        </a>#}
+{#                    </td>#}
+{#                </tr>#}
+                <tr>
+                    <td>{% trans 'Накладные на бумажном носителе' %}</td>
+                    <td>
+                        <a
+                            href="{% url 'schol_library:hl_paper_invoice' %}"
+                            data-hover="tooltip"
+                            data-placement="bottom"
+                            class="btn_adds btn-fcon"
+                          >
+                            <i aria-hidden="true" class="fa fa-chevron-circle-right "></i>
+                        </a>
+                    </td>
+                </tr>
+{#                {% if perms.schol_library.view_billing_invoice %}#}
+                <tr>
+                    <td>{% trans 'Акт на списание' %}</td>
+                    <td>
+                        <a
+                            href="{% url 'schol_library:act_write_off_invoice' %}"
+                            data-hover="tooltip"
+                            data-placement="bottom"
+                            class="btn_adds btn-fcon"
+                          >
+                            <i aria-hidden="true" class="fa fa-chevron-circle-right "></i>
+                        </a>
+                    </td>
+                </tr>
+{#                {% endif %}#}
+              </tbody>
+        </table>
+
+    </div>
+</div>
+{% endif %}
+{% endblock %}
+{% endif %}
+

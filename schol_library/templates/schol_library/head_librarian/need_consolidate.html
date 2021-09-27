@@ -1,0 +1,133 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load static %}
+{% if request.user.is_authenticated %}
+{% block content %}
+{% if messages %}
+    {%for message in messages %}
+        <h1>{{ message | safe }}!</h1>
+        <a href="{% url 'home:index' %}">Венуться на главную страницу</a>
+    {% endfor %}
+{% else %}
+<div id="token" data-token="{{ user.auth_token }}"></div>
+<div id="Reestr">
+    <nav aria-label="breadcrumb" class="bread-nav">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'home:index' %}">{% trans 'Рабочий стол' %}</a></li>
+          <li class="breadcrumb-item active" aria-current="page">{% trans 'Генерирование Заказа УМК' %}</li>
+        <li class="breadcrumb-item active" aria-current="page">{% if request.user.libraryuser.school %} {{ request.user.libraryuser.school }} {% else %} {% trans 'Не найдено место работы' %} {% endif %}</li>
+      </ol>
+    </nav>
+
+    <div id="before-load" v-if="!not">
+        <i class="fa fa-spinner fa-spin"></i>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row search-block">
+{#            <a class="btn_create" href="{% url 'schol_library:getexel' %}">{% trans 'Сформировать' %}</a>#}
+{#            <button class="btn_create" @click="endAccess">{% trans 'Завершить отчет' %}</button>#}
+{#            <p v-if="modal">{% trans 'Вы завершили' %}</p>#}
+{#            <button v-if="!file_s" class="btn_create" @click="getReestr">{% trans 'Сформировать' %}</button>#}
+        </div>
+        <div class="row search-block" >
+            <div class="col-3 mt-3">
+                <multiselect v-model="year" :options="years"  placeholder="{% trans 'на учебный год' %}" :show-labels="false"  label="name" track-by="name"></multiselect>
+            </div>
+            <div class="col-3 mt-3">
+                <button v-if="!loading && !show_access && !modal && year" class="btn_create" @click="getReestr">{% trans 'Сформировать' %}</button>
+                <button
+                    class="btn_adds btn-fcon"
+                    data-hover="tooltip"
+                    data-placement="bottom"
+                    title="{% trans 'Формируется'%}"
+                    v-if="loading"
+                  >
+            </div>
+            <div class="col-3 mt-3">
+                <button v-if="show_access && !modal" class="btn_create" @click="endAccess">{% trans 'Отправить отчет' %}</button>
+                <p v-if="modal">{% trans 'Вы завершили' %}</p>
+{#              <a class="btn_create" href="{% url 'schol_library:getexel' %}">{% trans 'Сформировать в Exel' %}</a>#}
+            </div>
+        </div>
+
+        <div class="row mt-2" v-for="table in filtetBrif" v-show="show_table">
+            <div class="col-md-2 card-bag">
+                <div class="row_to" v-show="show_table">
+                        <p>
+                            Для Учащихся (количество по плановому титулу {(year.name)} <br>
+                            Всего учащих: {(all_students)}
+                        </p>
+                </div>
+                <p>{(table.klass)} {% trans 'класс' %}/{(table.language)} для <small v-for="klass in table.klasses">{(klass)},</small></p>
+                <p>ВСЕГО {(table.students)} учащихся</p>
+              </div>
+            <div class="col-md-10 card-bag">
+                <table class="table table-bordered">
+                  <thead>
+                    <tr>
+                      <th scope="col">#</th>
+                      <th scope="col">Наименование</th>
+                      <th scope="col">Потребность</th>
+                      <th scope="col">Наличие</th>
+                      <th scope="col">Заказ</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr v-for="(item, index) in table.editions" :key="index">
+                      <th scope="row">{(index + 1)}</th>
+                      <td>
+                          {(item.edition.name)}| {(item.edition.author)}| {(item.edition.publisher)}| {(item.edition.publish_date)}| {(item.edition.metodology_complex)}|
+                          {(item.edition.isbn)}| {(item.edition.language.name)}| {(item.edition.klass)}| {(item.edition.subject)}| {(item.edition.study_direction)}|
+                      </td>
+                      <td>{(item.need)}</td>
+                      <td v-if="item.availability">{(item.availability)}</td>
+                      <td v-else>0</td>
+                      <td v-if="item.availability">{(item.order)}</td>
+                      <td v-else>{(item.need)}</td>
+                    </tr>
+                  </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="row mt-2" v-if="show_table">
+            <h1>{% trans 'Для педагогов' %}</h1>
+            <div class="col-md-12 card-bag" v-for="(klass, index) in klasses_t"  :key="index">
+                  <p v-if="klass.edition__language__name_ru">{(klass.edition__klass)} {% trans 'класс' %} {(klass.edition__language__name_ru)}</p>
+                  <p v-if="klass.edition__language__name_kk">{(klass.edition__klass)} {% trans 'класс' %} {(klass.edition__language__name_kk)}</p>
+                  <p v-if="klass.edition__language__name_en">{(klass.edition__klass)} {% trans 'класс' %} {(klass.edition__language__name_en)}</p>
+                  <table class="table table-bordered">
+                      <thead>
+                        <tr>
+                          <th scope="col">#</th>
+                          <th scope="col">Наименование</th>
+                          <th scope="col">Потребность</th>
+                          <th scope="col">Заказ</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr v-for="(item, index) in getGroup(klass)" :key="index" v-if="klass">
+                          <th scope="row">{(index+1)}</th>
+                           <td>
+                              {(item.edition.name)}| {(item.edition.author)}| {(item.edition.publisher)}| {(item.edition.publish_date)}| {(item.edition.metodology_complex)}|
+                              {(item.edition.isbn)}| {(item.edition.language.name)}| {(item.edition.klass)}| {(item.edition.subject)}| {(item.edition.study_direction)}|
+                           </td>
+                           <td>{(item.quantity)}</td>
+                           <td>{(item.quantity)}</td>
+                        </tr>
+                      </tbody>
+                  </table>
+              </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endif %}
+{% endblock %}
+{% block scripts %}
+<script src="{% static 'my_js/head_librarian/need_consolidate1.js' %}"></script>
+{% endblock %}
+{% endif %}

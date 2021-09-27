@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Изменение униг</title>
+</head>
+<body>
+<form action="" method="post">
+    <h2>Старый ID</h2>
+    <input type="text" name="old_id">
+    <br>
+    <br>
+    <h2>Новый ID</h2>
+    <input type="text" name="new_id">
+    <input name="csrfmiddlewaretoken" type="hidden" value="{{ csrf_token }}">
+    <br>
+    <br>
+    <button style="" class="button" type="submit"> Изменить</button>
+</form>
+</body>
+</html>

@@ -1,0 +1,160 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load bootstrap %}
+{% load static %}
+{% if request.user.is_authenticated %}
+
+{% block content %}
+<div id="token" data-token="{{ user.auth_token }}"></div>
+<nav aria-label="breadcrumb" class="bread-nav">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="{% url 'home:index' %}">{% trans 'Рабочий стол' %}</a></li>
+    <li class="breadcrumb-item active" aria-current="page">{% trans 'Реестр УМК' %}</li>
+    <li class="breadcrumb-item active" aria-current="page">{% if request.user.libraryuser.school %} {{ request.user.libraryuser.school }} {% else %} {% trans 'Не найдено место работы' %} {% endif %}</li>
+  </ol>
+</nav>
+
+<div id="appBoock">
+    <div id="before-load" v-if="download">
+        <i class="fa fa-spinner fa-spin"></i>
+    </div>
+
+    <div class="container-fluid" v-if="getss">
+        <div class="row search-block" v-if="boocks.length >= 1" id="navigation">
+            <div class="col-2 mb-2">
+              <multiselect v-model="klass" :custom-label="nameKlass" :options="klasss"  placeholder="{% trans 'Класс' %}" :show-labels="false"  label="name" track-by="name"></multiselect>
+            </div>
+            <div class="col-2">
+              <multiselect v-model="subject" :options="subjects"  placeholder="{% trans 'Учебная дисциплина' %}" :show-labels="false"  label="name" track-by="name"></multiselect>
+            </div>
+            <div class="col-2" style="max-width: 13%;">
+              <multiselect v-model="language" :options="languages"  placeholder="{% trans 'Язык издания' %}" :show-labels="false" label="name" track-by="name"></multiselect>
+            </div>
+            <div class="col-2">
+              <multiselect v-model="metodology_complex" :options="metodology_complexs"  placeholder="{% trans 'УМК' %}" :show-labels="false"  label="name" track-by="name"></multiselect>
+            </div>
+            <div class="col-3" style="max-width: 19%;">
+              <multiselect v-model="study_direction" :options="study_directions"  placeholder="{% trans 'Направление обучения' %}" :show-labels="false"  label="name" track-by="name"></multiselect>
+            </div>
+            <div class="col-1"></div>
+            <div class="col-3">
+                <!--<multiselect v-model="name" :options="boocks"  placeholder="{% trans 'Наименования издания' %}" :show-labels="false"  label="name" :custom-label="nameWithLang" track-by="name"></multiselect>-->
+                <multiselect v-model="name" :options="editions"  placeholder="{% trans 'Наименования издания' %}" :show-labels="false"  label="name" track-by="name"></multiselect>
+            </div>
+            <div class="col-3">
+                <multiselect v-model="publisher" :options="publishers"  placeholder="{% trans 'Издательство' %}" :show-labels="false"  label="name" track-by="name"></multiselect>
+            </div>
+            <div class="col-3">
+                <multiselect v-model="author" :options="authors"  placeholder="{% trans 'Автор' %}" :show-labels="false"  label="name" track-by="name"></multiselect>
+            </div>
+             <div class="col-2">
+                <multiselect v-model="publish_date" :options="years"  placeholder="{% trans 'Год издания' %}" :show-labels="false"  label="year" track-by="year"></multiselect>
+            </div>
+            <div class="cols-rightside" style="display:flex; align-items: center;">
+                <button v-if="boocks.length >= 1" type="submit" data-hover="tooltip" data-placement="bottom" title="{% trans 'Очистить фильтр'%}" class="btn_adds btn-fcon" v-on:click="cLear()"><i class="fa fa-filter" aria-hidden="true"></i></button>
+            </div>
+            </div>
+         <div class="row">
+            <div class="col-12 pt-5 pb-5">
+                <table v-if="boocks.length >= 1" class="responstable size-cols" id="table_id">
+                    <thead>
+                      <th scope="col">#</th>
+                      <th scope="col">{% trans 'Класс' %}</th>
+                      <th scope="col">{% trans 'Учебная дисциплина' %}</th>
+                      <th scope="col">{% trans 'Наименование издания' %}</th>
+                      <th scope="col">{% trans 'На складе' %}</th>
+                      <th scope="col">{% trans 'Сумма' %}</th>
+                      <th scope="col">{% trans 'Язык издания' %}</th>
+{#                      <th scope="col">{% trans 'Год издания' %}</th>#}
+                    </thead >
+                    <tbody>
+                      <tr
+                        is="form-boocks"
+                        v-for='(item, index) in filterNames'
+                        :index="index"
+                        :key="index"
+                        :datamodel="item">
+                      </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="container mx-auto">
+                <div class="row librarian-all">
+                    <div class="col-md-4">
+                        <p class="librarian-title">{% trans 'На складе' %}:</p>
+                           <p class="librarian-num"> {(computeMyBind1)}</p>
+                    </div>
+                     <div class="col-md-4">
+                        <p class="librarian-title">{% trans 'Сумма' %}:</p>
+                           <p class="librarian-num"> {(computeMyBind)}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{#  шаблон компонента строки таблицы  #}
+<script type="text/x-template" id="form-boocks">
+<tr>
+    <td scope="row">{( index + 1 )}</td>
+    <td>{(datamodel.edition.klass.slice(0,7) )}</td>
+    <td>{(datamodel.edition.subject )}</td>
+    <td>
+        {(datamodel.edition.name)} / {(datamodel.edition.metodology_complex)} /  {( datamodel.edition.publish_date )}<br>
+        {(datamodel.edition.author)} / {(datamodel.edition.publisher)} / {(datamodel.edition.study_direction)} / {% trans 'ISBN' %}: {(datamodel.edition.isbn)}
+
+    </td>
+    <td>{(datamodel.results.quantity)}</td>
+    <td>
+        {(datamodel.results.summ)}
+    </td>
+    <td>{(datamodel.edition.language )}</td>
+{#    <td>{(datamodel.edition.publish_date )}</td>#}
+</tr>
+</script>
+
+{% endblock %}
+{% block scripts %}
+{% if not messages %}
+{#  LibraryBooksAPIList  #}
+<script>
+
+function show_popup() {
+  $('#table_id').DataTable({
+    paging: false,
+    searching: false,
+    language: {url: 'https://cdn.datatables.net/plug-ins/1.10.19/i18n/Russian.json'}, //русский
+     dom: 'Bfrtip',
+     buttons: [  /// Вот это массив кнопок
+     {
+     extend: 'print',
+     text: '<i class="fa fa-print"></i> Печать',
+     title: '{% trans 'Реестр УМК' %}:{{ request.user.libraryuser.school.name }}'
+     },
+
+     {
+     extend: 'excel',
+     text: '<i class="fa fa-file-excel-o"></i> Экспорт в Excel',
+     title: '{% trans 'Реестр УМК' %}:{{ request.user.libraryuser.school.name }}'
+     },
+
+     {
+     extend: 'colvis',
+     text: '<i class="fa fa-eye"></i> Видимость колонок',
+     title: '{% trans 'Реестр УМК' %}:{{ request.user.libraryuser.school.name }}'
+     },
+
+     ],
+     responsive: true, // сделать удобной для мобильного просмотра
+     columnDefs: [{targets: 0,}],
+
+  })
+};
+
+</script>
+
+<script src="{% static 'my_js/librarian/number_books_all1.js' %}"></script>
+
+ {% endif %}
+{% endblock %}
+ {% endif %}

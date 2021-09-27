@@ -1,0 +1,63 @@
+{% load i18n %}
+{% load static %}
+{% load avatar_del_media %}
+<header class="main-header">
+		<div class="container-fluid">
+			<div class="row gutters">
+				<div class="col-md-3">
+					<div class="logotype"><img src="{% static 'img/Logo-ekitaphana22.png' %}" > Екiтапхана</div>
+				</div>
+				<div class="col-md-3">
+					{% if request.user.is_authenticated %}
+						<p>{% if request.user.libraryuser.school %} {{ request.user.libraryuser.school.name }} {% else %} {% trans 'Не найдено место работы' %} {% endif %}</p>
+					{% endif %}
+				</div>
+				<div class="col-md-6">
+					<ul class="header-actions">
+						<li><a class="btn_adds" href="/kk/{{lang}}" data-hover="tooltip" data-placement="bottom" title="Қазақша" value="kk" type="submit">ҚАЗ</a></li>
+						<li><a class="btn_adds" href="/ru/{{lang}}" data-hover="tooltip" data-placement="bottom" title="Русский" value="ru" type="submit">РУС</a></li>
+
+						{% if request.user.is_authenticated %}
+								<li class="dropdown">
+									<a href="#" id="userSettings" class="user-settings user-set-ns" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                         {% if request.user.libraryuser.avatar.avatar.url %}
+										    <span class="avatar"><img width="50px" src="https://eportfolio.kz/static/images{{ request.user.libraryuser.avatar.avatar.url|avatar}}" alt=""></span>
+                                         {% else %}
+                                            <span class="avatar"><i class="fa fa-user" aria-hidden="true"></i></span>
+                                        {% endif %}
+                                        <span class="user-name"> <span
+                                                class="sp-logs">{{ request.user.last_name }} {{ request.user.first_name }} {{ request.user.libraryuser.avatar.patronymic_name }}</span><span
+                                                class="sp-logs">{{ request.user.username }}</span>   </span>
+										<i class="fa fa-angle-down" aria-hidden="true"></i>
+									</a>
+
+                                    <div class="dropdown-menu lg dropdown-menu-right" aria-labelledby="userSettings" x-placement="bottom-end" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(-117px, 60px, 0px);">
+										<div class="admin-settings">
+											<ul class="admin-settings-list">
+
+                                                <li>
+                                                    <hr>
+                                                    {% load header %}
+                                                    {% header user %}
+
+												</li>
+											</ul>
+											<div class="actions">
+												<a href="{% url 'home:logout' %}" class="btn_login" style="float: right; text-align: center;">{% trans 'Выйти' %}</a>
+											</div>
+										</div>
+									</div>
+								</li>
+								<li class="">
+									<a class="btn_adds" style="display: flex; align-items: center; justify-content: center;" data-hover="tooltip" data-placement="bottom" title="{% trans 'Выйти' %}" href="{% url 'home:logout' %}">
+										<i class="fa fa-sign-out" aria-hidden="true"></i>
+									</a>
+								</li>
+							</ul>
+					 {% endif %}
+
+				</div>
+			</div>
+		</div>
+</header>
+

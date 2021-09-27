@@ -1,0 +1,2 @@
+docker-compose up  - запуск программы на 8000 порту вашего Docker хоста
+docker-machine ip MACHINE_NAME Если вы используете Docker Machine VM, вы можете использовать команду docker-machine ip MACHINE_NAME что бы узнать IP адрес.

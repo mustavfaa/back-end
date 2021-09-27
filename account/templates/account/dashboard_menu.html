@@ -1,0 +1,140 @@
+{% load i18n %}
+{% load staticfiles %}
+{% if error == 0 %}
+    {% if 1 in list_groups or 6 in list_groups %}
+    <div class="row">
+        <div class="col-md-3">
+            <a class="numic-1" href="{% url 'schol_library:head_librarian' %}">
+                <div class="dash-icons">
+                    <img src="{% static 'img/archive.png' %}">
+                </div>
+                <span>{% trans "Постановка на учет УМК" %}</span>
+            </a>
+        </div>
+
+        <div class="col-md-3">
+            <a class="numic-2" href="{% url 'schol_library:hl_edit_books' %}">
+                <div class="dash-icons">
+                    <img src="{% static 'img/resume.png' %}">
+                </div>
+                <span>{% trans "Редактирование УМК" %}</span>
+            </a>
+        </div>
+
+        <div class="col-md-3">
+            <a class="numic-3" href="{% url 'schol_library:librarian' %}">
+                <div class="dash-icons">
+                        <img src="{% static 'img/books-stack-of-three.png' %}">
+                    </div>
+                <span>{% trans "Реестр УМК" %}</span>
+            </a>
+        </div>
+
+
+        <div class="col-md-3">
+            <a class="numic-4" href="{% url 'schol_library:head_science' %}">
+                <div class="dash-icons">
+                        <img src="{% static 'img/consent.png' %}">
+                    </div>
+                <span>{% trans "Формирование Титульного списка школы" %} </span>
+            </a>
+        </div>
+
+        <div class="col-md-3">
+            <a class="numic-5" href="{% url 'schol_library:l_class_list' %}">
+                <div class="dash-icons">
+                <img src="{% static 'img/reading.png' %}">
+                </div>
+                <span>{% trans "Титульный Список школы" %}</span>
+            </a>
+        </div>
+
+    {% endif %}
+    {% if 2 in list_groups or 6 in list_groups %}
+
+        <div class="col-md-3">
+            <a class="numic-6" href="{% url 'schol_library:hl_planned_title_create' %}">
+                <div class="dash-icons">
+                    <img src="{% static 'img/text-document-with-title.png' %}">
+                </div>
+                <span>{% trans "Создание планового Титульного списка школы" %}</span>
+            </a>
+        </div>
+
+        <div class="col-md-3">
+            <a class="numic-7" href="{% url 'schol_library:hl_briefcase' %}">
+                <div class="dash-icons">
+                        <img src="{% static 'icons/school-bag.svg' %}">
+                    </div>
+                <span>{% trans "Комплектование портфеля УМК" %}</span>
+            </a>
+        </div>
+
+        <div class="col-md-3">
+            <a class="numic-8" href="{% url 'schol_library:hl_consolidated_registry' %}">
+                <div class="dash-icons">
+                    <img src="{% static 'icons/box.svg' %}">
+                </div>
+                <span>{% trans "Генерирование Заказа УМК" %}</span>
+            </a>
+        </div>
+    {% endif %}
+
+    {% if 3 in list_groups %}
+
+         {% if 1 not in list_groups %}
+            <div class="col-md-3">
+                <a class="numic-3" href="{% url 'schol_library:librarian' %}">
+                    <div class="dash-icons">
+                            <img src="{% static 'img/books-stack-of-three.png' %}">
+                        </div>
+                    <span>{% trans "Реестр УМК" %}</span>
+                </a>
+            </div>
+
+            <div class="col-md-3">
+                <a class="numic-5" href="{% url 'schol_library:l_class_list' %}">
+                    <div class="dash-icons">
+                    <img src="{% static 'img/reading.png' %}">
+                    </div>
+                    <span>{% trans "Титульный Список школы" %}</span>
+                </a>
+            </div>
+         {% endif %}
+
+
+    {#    <div class="col-md-3">#}
+    {#        <a class="numic-7" href="{% url 'schol_library:hl_edit_role' %}">#}
+    {#            <div class="dash-icons">#}
+    {#                <img src="{% static 'img/admin-rules.png' %}">#}
+    {#            </div>#}
+    {#            <span>{% trans "Администрирование ролей" %}</span>#}
+    {#        </a>#}
+    {#    </div>#}
+
+
+    {% endif %}
+    {% if 1 in list_groups or 6 in list_groups %}
+       <div class="col-md-3">
+            <a class="numic-9" href="{% url 'schol_library:hl_invoices' %}">
+                <div class="dash-icons">
+                <img src="{% static 'icons/file.svg' %}">
+                </div>
+                <span>{% trans "Оприходование УМК по накладным" %}</span>
+            </a>
+       </div>
+       <div class="col-md-3">
+            <a class="numic-10" href="{% url 'schol_library:request_edition' %}">
+                <div class="dash-icons">
+                <img src="{% static 'img/reading.png' %}">
+                </div>
+                <span>{% trans "Заявки на книгу" %}</span>
+            </a>
+       </div>
+    {% endif %}
+    </div>
+{% else %}
+<div class="row text-center">
+    <h5 style="color: white">{% trans 'Нет такого пользователя' %}</h5>
+</div>
+{% endif %}

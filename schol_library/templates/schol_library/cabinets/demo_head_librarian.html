@@ -1,0 +1,221 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load bootstrap %}
+{% load static %}
+{% if request.user.is_authenticated %}
+
+{% block content %}
+<section class="bg-showcase-2">
+<h1>{% trans 'Кабинет библиотекаря' %}</h1>
+    <br>
+</section>
+<div class="container-fluid">
+<div id="token" data-token="{{ user.auth_token }}"></div>
+<div id="app">
+    <br />
+    <div class="row floating-form" v-model="itemform">
+      <div class="col-4 floating-label">
+          <select
+            name="edition"
+            class="floating-select"
+            v-model="itemform.edition"
+            required="required"
+          >
+            <option value="" selected=""> </option>
+             {% for en in editions %}
+            <option value="{{ en.id }}">{{ en.name }}</option>
+             {% endfor %}
+          </select>
+        <span class="highlight"></span>
+        <label>{% trans 'Издание' %}</label>
+      </div>
+      <div class="col-4 floating-label">
+          <input
+            type="number"
+            name="on_hands"
+            min="0"
+            v-model="itemform.on_hands"
+            class="floating-input"
+            id="id_on_hands"
+            required="required"
+          />
+        <span class="highlight"></span>
+        <label class="control-label  " for="id_on_hands"
+          >{% trans 'На руках' %}</label>
+      </div>
+      <div class="col-4 floating-label">
+          <input
+            min="0"
+            type="number"
+            name="on_hands"
+            v-model="itemform.in_warehouse"
+            class="floating-input"
+            id="id_on_hands"
+            required="required"
+          />
+          <span class="highlight"></span>
+          <label class="control-label  " for="id_on_hands">{% trans 'На складе' %}</label>
+      </div>
+      <div class="btn_place">
+        <button class="btn btn_login" :disabled='!isComplete' v-on:click="aAdd()">
+          {% trans 'Добавить' %}
+        </button>
+      </div>
+    </div>
+    <div>
+      <table class="responstable" id="table_id">
+        <thead>
+          <th scope="col">#</th>
+          <th scope="col">{% trans 'Издание' %}</th>
+          <th scope="col">{% trans 'На руках' %}</th>
+          <th scope="col">{% trans 'На складе' %}</th>
+          <th scope="col">{% trans 'Удалить' %}</th>
+          <th scope="col">{% trans 'Редактировать' %}</th>
+        </thead>
+
+        <tbody>
+          <tr
+            is="blog-item"
+            v-for="(item, index) in numberBooks"
+            :index="index"
+            :key="index"
+            :item="item"
+            :removefn="remove"
+            :tokens="token"
+          >
+          </tr>
+        </tbody>
+      </table>
+      <p>{% trans 'Всего на руках' %}: {(computeMyBind())}</p>
+      <p>{% trans 'Всего на Скалде' %}: {(computeMyBind1())}</p>
+    </div>
+
+  </div>
+</div>
+
+{#  Шаблон  таблицы с кнопками   #}
+<script type="text/x-template" id="boocks-template">
+    <tr>
+        <th scope="row">{( index + 1 )}</th>
+        <td>{(item.edition.name)}</td>
+        <td>{( item.on_hands )}</td>
+        <td>{( item.in_warehouse )}</td>
+        <td>
+          <button class="btn_delete" v-on:click="removefn(index, item)">
+            {% trans 'Удалить' %}
+          </button>
+        </td>
+        <td>
+          <blog-post :token="tokens" v-if="showModal" :item="item"  @close="showModal = false">
+                <h4 slot="header">Форма редактирования</h4>
+          </blog-post>
+          <button class="btn_delete" id="show-modal" @click="showModal = true">
+            {% trans 'Редактировать' %}
+          </button>
+        </td>
+    </tr>
+</script>
+
+{#  модальное окно  #}
+<script type="text/x-template" id="modal-template">
+  <transition name="modal">
+    <div class="modal-mask">
+      <div class="modal-wrapper">
+        <div class="modal-container">
+
+          <div class="modal-header">
+            <slot name="header">
+              default header
+            </slot>
+          </div>
+
+          <div class="modal-body">
+            <slot name="body">
+              <h5>{% trans 'Издание:' %} {( item.edition.name )}</h5>
+                 <div class="row">
+                     <div class="col-md-6">
+              <p class="p-result">{% trans 'На руках' %}</p>
+              <input
+                type="number"
+                name="on_hands"
+                min="0"
+                v-model="fItem.on_hands"
+                :placeholder='item.on_hands'
+                class="floating-input"
+                id="id_on_hands"
+                required="required"
+              />
+                         </div>
+                         <div class="col-md-6">
+              <p class="p-result">{% trans 'В складе' %}</p>
+              <input
+                type="number"
+                name="in_warehouse"
+                min="0"
+                v-model="fItem.in_warehouse"
+                :placeholder='item.in_warehouse'
+                class="floating-input"
+                id="in_warehouse"
+                required="required"
+              />
+                </div>
+              </div>
+            </slot>
+
+          </div>
+          <div class="modal-footer">
+            <slot name="footer">
+              <button class="btn_login" @click="eDit()">
+                {% trans 'Изменить' %}
+              </button>
+              <button class="btn_delete" style="padding: 10px; margin-top: 10px;" @click="$emit('close')">
+                {% trans 'Закрыть' %}
+              </button>
+            </slot>
+          </div>
+        </div>
+      </div>
+    </div>
+  </transition>
+</script>
+
+{% endblock %}
+{% block scripts %}
+
+<script>
+
+</script>
+<script src="{% static 'my_js/head_librarian/demo_head_librarian.js' %}"></script>
+<script>
+var myTable;
+$(document).ready( function () {
+    function show_popup(){ myTable =  $('#table_id').DataTable({ language:
+        {
+      "processing": "Подождите...",
+      "search": "Поиск:",
+      "lengthMenu": "Показать _MENU_ записей",
+      "info": "Записи с _START_ до _END_ из _TOTAL_ записей",
+      "infoEmpty": "Записи с 0 до 0 из 0 записей",
+      "infoFiltered": "(отфильтровано из _MAX_ записей)",
+      "infoPostFix": "",
+      "loadingRecords": "Загрузка записей...",
+      "zeroRecords": "Записи отсутствуют.",
+      "emptyTable": "В таблице отсутствуют данные",
+      "paginate": {
+        "first": "Первая",
+        "previous": "Предыдущая",
+        "next": "Следующая",
+        "last": "Последняя"
+      },
+      "aria": {
+        "sortAscending": ": активировать для сортировки столбца по возрастанию",
+        "sortDescending": ": активировать для сортировки столбца по убыванию"
+      }
+    }
+
+    })};
+    window.setTimeout( show_popup, 1000 );
+});
+</script>
+{% endblock %}
+ {% endif %}

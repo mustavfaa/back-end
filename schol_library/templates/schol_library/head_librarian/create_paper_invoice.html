@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load bootstrap %}
+{% load static %}
+{% block css %}
+<style>
+	.modalf {
+		padding-top: 129px;
+		display: block;
+		padding-right: 15px;
+	}
+    .bag-table1 tbody tr td {
+        padding: 3px !important;
+    }
+
+    .bag-table1 thead tr th:nth-child(1) {
+      width: 3% !important;
+    }
+
+    .bag-table1 thead tr th:nth-child(2) {
+      width: 7% !important;
+    }
+
+    .bag-table1 thead tr th:nth-child(3) {
+      width: 3% !important;
+    }
+
+    .bag-table1 thead tr th:nth-child(4) {
+      width: 40% !important;
+    }
+    .bag-table1 thead tr th:nth-child(5) {
+      width: 10% !important;
+    }
+    .bag-table1 thead tr th:nth-child(6) {
+      width: 4% !important;
+    }
+    .bag-table1 thead tr th:nth-child(7) {
+      width: 4% !important;
+    }
+
+    .bag-table thead tr th:nth-child(5) {
+      width: 50% !important;
+    }
+    .bag-table thead tr th:nth-child(6) {
+      width: 10% !important;
+    }
+</style>
+{% endblock %}
+{% block content %}
+<div id="Invoice" >
+    
+
+</div>
+{% endblock %}
+{% block scripts %}
+<script src="https://unpkg.com/vuejs-datepicker"></script>
+<script src="https://unpkg.com/vuejs-datepicker/dist/locale/translations/ru.js"></script>
+<script src="{% static 'js/moment.min.js' %}"></script>
+<script src="{% static 'my_js/head_librarian/create_paper_invoice.js' %}"></script>
+{% endblock %}

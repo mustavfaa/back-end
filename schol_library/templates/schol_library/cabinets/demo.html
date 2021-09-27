@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load bootstrap %}
+{% load static %}
+{% if request.user.is_authenticated %}
+
+{% block content %}
+<section class="bg-showcase-2">
+<h1>{% trans 'Кабинет библиотекаря' %}</h1>
+    <br>
+</section>
+<div class="container">
+    <div id="token" data-token="{{ user.auth_token }}"></div>
+<div id="app">
+    <br />
+    <div class="row forms-input" v-model="itemform">
+      <div class="form-group col-4">
+        <label class="control-label">{% trans 'издание' %}</label>
+        <div class=" ">
+          <select
+            name="edition"
+            class=" form-control"
+            v-model="itemform.edition"
+          >
+            <option value="" selected="">---------</option>
+             {% for en in editions %}
+            <option value="{{ en.id }}">{{ en.name }}</option>
+             {% endfor %}
+          </select>
+        </div>
+      </div>
+      <div class="form-group col-4">
+        <label class="control-label  " for="id_on_hands"
+          >{% trans 'На руках' %}</label
+        >
+        <div class=" ">
+          <input
+            type="number"
+            name="on_hands"
+            v-model="itemform.on_hands"
+            class=" form-control"
+            id="id_on_hands"
+          />
+        </div>
+      </div>
+      <div class="form-group col-4">
+        <label class="control-label  " for="id_on_hands"
+          >{% trans 'На складе' %}</label
+        >
+        <div class=" ">
+          <input
+            type="number"
+            name="on_hands"
+            v-model="itemform.in_warehouse"
+            class=" form-control"
+            id="id_on_hands"
+          />
+        </div>
+      </div>
+      <div class="btn-place">
+        <button class="btn-style from-middle" v-on:click="aAdd()">
+          {% trans 'Добавить' %}
+        </button>
+      </div>
+    </div>
+    <div>
+      <table class="display" id="table_id">
+        <thead>
+          <th scope="col">#</th>
+          <th scope="col">{% trans 'Издение' %}</th>
+          <th scope="col">{% trans 'На руках' %}</th>
+          <th scope="col">{% trans 'На скалде' %}</th>
+          <th scope="col">{% trans 'Удалить' %}</th>
+        </thead>
+
+        <tbody>
+          <tr
+            v-for="(item, index) in numberBooks"
+            index="index"
+            key="index"
+          >
+            <th scope="row">{( index + 1 )}</th>
+            <td>{(item.edition)}</td>
+            <td>{( item.on_hands )}</td>
+            <td>{( item.in_warehouse )}</td>
+            <td>
+              <button class="btn-danger" v-on:click="remove(index, item)">
+                {% trans 'Удалить' %}
+              </button>
+            </td>
+          </tr>
+        </tbody>
+        <tbody>
+          <td>{% trans 'Всего на руках' %}: {(computeMyBind())}</td>
+          <td>{% trans 'Всего на Скалде' %}: {(computeMyBind1())}</td>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+{% block scripts %}
+<script src="{% static 'my_js/librarian/librian.js' %}"></script>
+<script>
+$(document).ready( function () {
+    $('#table_id').DataTable();
+} );
+
+</script>
+{% endblock %}
+ {% endif %}

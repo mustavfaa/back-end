@@ -1,0 +1,179 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+{% if request.user.is_authenticated %}
+{% block content %}
+<div id="token" data-token="{{ request.user.auth_token }}"></div>
+ <nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="{% url 'home:index' %}">{% trans 'Рабочий стол' %}</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Назначение на должность для учреждения: {% if request.user.libraryuser.school %} {{ request.user.libraryuser.school }} {% else %} {% trans 'Не найдено место работы' %} {% endif %}}</li>
+  </ol>
+</nav>
+
+<script type="text/x-template" id="roles-list">
+<table>
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">{% trans 'Роль' %}</th>
+      <th scope="col">{% trans 'Фото' %}</th>
+      <th scope="col">{% trans 'ФИО' %}</th>
+      <th scope="col">{% trans 'Логин' %}</th>
+      <th scope="col">{% trans 'Дата назначения' %}</th>
+      <th scope="col">{% trans 'Дата окончания' %}</th>
+    </tr>
+  </thead>
+    <tbody>
+        <tr v-for="(data, index) in roles" :key="index">
+          <th scope="row">{(index + 1 )}</th>
+          <td scope="row" v-if="data.role">
+              {(data.role.name)}
+          </td>
+          <td v-else>{% trans 'Нету роли' %}</td>
+          <td>
+              <img v-if="data.user.portfolio_set" :src="data.user.portfolio_set" alt="" width="70px">
+              <img v-else src="{% static 'img/role.jpg' %}" alt="" width="70px">
+          </td>
+          <td>{(data.user.last_name)} {(data.user.first_name)} {(data.user.portfolio_set[0].patronymic_name)}</td>
+          <td>{(data.user.username)}</td>
+          <td>{(data.data_appointment)}</td>
+          <td v-if="data.data_end">
+              {(data.data_end)}
+          </td>
+          <td v-else is="end-role" :role="data" :token="tokens">
+          </td>
+
+        </tr>
+    </tbody>
+</table>
+</script>
+<script type="text/x-template" id="end-role">
+<td>
+    <button v-on:click="theEndP()">{% trans 'Завершить полномочия' %}</button>
+</td>
+</script>
+
+<div id="app">
+    <div class="container">
+        <h1>{% trans 'Назначение на должность зам. директора по учебной работе для учреждения' %}: {% if request.user.libraryuser.school %} {{ request.user.libraryuser.school }} {% else %} {% trans 'Не найдено место работы' %} {% endif %}}</h1>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="avatar-img" style="">
+                    <img v-else src="{% static 'img/role.jpg' %}" alt="" width="70px">
+                     <img v-if="user.avatar" :src="user.avatar" alt="" width="70px">
+                </div>
+            </div>
+            <div class="col-md-8">
+                 <div class="row">
+                    <div class="col-md-12">
+                        <multiselect
+                        v-model="user"
+                        :options="users"
+                        placeholder="{% trans 'Выберите из списка' %}"
+                        :show-labels="false"
+                        label="last_name"
+                        track-by="last_name"
+                        :custom-label="nameWithLang"
+                        @input="cheCkid(user)"
+                    >
+                        </multiselect>
+                     </div>
+
+                     <div class="col-md-12">
+                       <p>{% trans 'Выберите роль' %}</p>
+                        <div id="example-3" class="demo" v-for="(group, index) in groups_list_b" :key="index">
+                          <label class="check-label" :for="group">{(group.name)}
+                            <input type="checkbox" :id="group.id" :value="group" v-model="groups">
+                              <span class="checkmark"></span>
+                            </label>
+                        </div>
+                     </div>
+                     <div class="col-md-12">
+                         <button class="btn_login" v-on:click="aAdd()">{% trans 'Назначить' %}</button>
+                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+     <div class="container-fluid">
+        <div class="row">
+            <div class="pt-5 col-12">
+                <h4>Назначения</h4>
+                <table is="roles-list" id="table_id" class="responstable table_id" :tokens="token" :roles="role_list"></table>
+                <br>
+                <h4>История</h4>
+                <table is="roles-list" id="table_id" class="responstable table_id1" :tokens="token" :roles="history_roles"></table>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+{% block scripts %}
+<script src="{% static 'my_js/head_librarian/role_assignment.js' %}"></script>
+<script>
+var myTable;
+var myTable1;
+$(document).ready( function () {
+    function show_popup(){
+        myTable =  $('.table_id').DataTable({ language:
+            {
+          "processing": "Подождите...",
+          "search": "Поиск:",
+          "lengthMenu": "Показать _MENU_ записей",
+          "info": "Записи с _START_ до _END_ из _TOTAL_ записей",
+          "infoEmpty": "Записи с 0 до 0 из 0 записей",
+          "infoFiltered": "(отфильтровано из _MAX_ записей)",
+          "infoPostFix": "",
+          "loadingRecords": "Загрузка записей...",
+          "zeroRecords": "Записи отсутствуют.",
+          "emptyTable": "В таблице отсутствуют данные",
+          "paginate": {
+            "first": "Первая",
+            "previous": "Предыдущая",
+            "next": "Следующая",
+            "last": "Последняя"
+          },
+          "aria": {
+            "sortAscending": ": активировать для сортировки столбца по возрастанию",
+            "sortDescending": ": активировать для сортировки столбца по убыванию"
+          }
+        }
+
+        });
+
+        myTable1 =  $('.table_id1').DataTable({ language:
+            {
+          "processing": "Подождите...",
+          "search": "Поиск:",
+          "lengthMenu": "Показать _MENU_ записей",
+          "info": "Записи с _START_ до _END_ из _TOTAL_ записей",
+          "infoEmpty": "Записи с 0 до 0 из 0 записей",
+          "infoFiltered": "(отфильтровано из _MAX_ записей)",
+          "infoPostFix": "",
+          "loadingRecords": "Загрузка записей...",
+          "zeroRecords": "Записи отсутствуют.",
+          "emptyTable": "В таблице отсутствуют данные",
+          "paginate": {
+            "first": "Первая",
+            "previous": "Предыдущая",
+            "next": "Следующая",
+            "last": "Последняя"
+          },
+          "aria": {
+            "sortAscending": ": активировать для сортировки столбца по возрастанию",
+            "sortDescending": ": активировать для сортировки столбца по убыванию"
+          }
+        }
+
+        })
+    }
+
+
+    window.setTimeout( show_popup, 3000 );
+});
+</script>
+
+{% endblock %}
+{% endif %}

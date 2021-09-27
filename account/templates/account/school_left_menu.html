@@ -1,0 +1,116 @@
+{% load i18n %}
+
+<div>
+    <a class="btn_create" href="{% url 'account:get_school' %}" >Вернуть</a>
+</div>
+{% for item in groups %} {% if item.group == False %}
+
+<div class="card panel right-menu-list">
+    <div class="card-head card-head-xs collapsed left-menu" data-toggle="collapse" data-parent="#accordion2" data-target="#accordion2-{{item.data.pk}}" aria-expanded="false">
+        <header>{{item.data}}
+        </header>
+        <div class="uch-zav">
+            <small>{{item.data.my_schools_len}}
+      </small>
+        </div>
+        <div class="uch">
+            <small>{{item.data.teacher_len}}
+      </small>
+        </div>
+    </div>
+    <div id="accordion2-{{item.data.pk}}" class="collapse" aria-expanded="false">
+        <div class="card-body">
+            <ul>
+                {% for school in item.data.my_schools %}
+                <li>
+                    <a t="{{school.pk}}" href="{% url 'account:get_school' %}?pk={{school.pk}}">
+                        <div>{{school}}
+                        </div>
+                    </a>
+                    <div class="uch">
+                        <small>{{school.teacher_len}}
+            </small>
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+{% else %}
+<div class="card panel right-menu-list">
+    <div class="card-head card-head-xs left-menu" data-toggle="collapse" data-target="#accordion_int_item_data{{item.data.pk}}" aria-expanded="false">
+        <header class="text-danger">{{item.data}}
+        </header>
+        <div class="uch-zav">
+            <small>{{item.my_schools_len}}
+      </small>
+        </div>
+        <div class="uch">
+            <small>{{item.teacher_len}}
+      </small>
+        </div>
+    </div>
+    <div class="panel-group collapsed" id="accordion_int_item_data{{item.data.pk}}">
+        {% for d in item.list %}
+        <div class="card panel">
+            <div class="card-head card-head-xs collapsed left-menu" data-toggle="collapse" data-parent="#accordion_int_item_data{{item.data.pk}}" data-target="#accordion_int_item_data{{item.data.pk}}_{{d.pk}}" aria-expanded="false">
+                <header>{{d}}
+                </header>
+                <div class="uch-zav">
+                    <small>{{d.my_schools_len}}
+          </small>
+                </div>
+                <div class="uch">
+                    <small>{{d.teacher_len}}
+          </small>
+                </div>
+            </div>
+            <div id="accordion_int_item_data{{item.data.pk}}_{{d.pk}}" class="collapse" aria-expanded="false">
+                <div class="card-body">
+                    <ul>
+                        {% for school in d.my_schools %}
+                        <li>
+                            <a t="{{school.pk}}" href="{% url 'account:get_school' %}?pk={{school.pk}}">
+                                <div>{{school}}
+                                </div>
+                            </a>
+                            <div class="uch">
+                                <small>{{school.teacher_len}}
+                </small>
+                            </div>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+<script>
+    colls.push($('[data-target=#accordion_int_item_data{{item.data.pk}}] header'));
+</script>
+
+{% endif %} {% endfor %}
+<script>
+    $('.uch,.uch-zav').addClass('circle');
+    $('.uch,.uch-zav').addClass('pull-right');
+    $('.right-menu-list a').addClass('tile-content');
+    $('.right-menu-list a').addClass('ink-reaction');
+    $.each($('.right-menu-list a'), function() {
+        $(this).attr('href', "{% url 'account:get_school' %}" + "?pk=" + $(this).attr('t')) + "/"
+    });
+    $('.right-menu-list ul').addClass('list');
+    $('.right-menu-list li').addClass('tile');
+    $('.right-menu-list a div').addClass('tile-text');
+    $('.right-menu-list small').addClass('pull-right');
+    $('.right-menu-list small').addClass('text-bold');
+    $('.right-menu-list small').addClass('text-primary');
+    $('.right-menu-list .uch small').attr('data-original-title', "Учителей");
+    $('.right-menu-list .uch-zav small').attr('data-original-title', "Учебных заведений");
+    $('.right-menu-list .uch-zav small').attr('data-toggle', "tooltip");
+    $('.right-menu-list .uch small').attr('data-toggle', "tooltip");
+    $('.right-menu-list .uch-zav small').attr('data-placement', "top");
+    $('.right-menu-list .uch small').attr('data-placement', "top");
+</script>

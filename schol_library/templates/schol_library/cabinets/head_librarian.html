@@ -1,0 +1,117 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load bootstrap %}
+{% load static %}
+{% if request.user.is_authenticated %}
+
+{% block content %}
+<div id="token" data-token="{{ user.auth_token }}"></div>
+<div id="appBoock">
+    <section class="bg-showcase-2">
+<h1>{% trans 'Постановка на учет УМК' %}</h1>
+</section>
+ <div v-if="boocks.length >= 1" class="container-fluid pt-5">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'home:index' %}">{% trans 'Главное' %}</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{% trans 'Постановка на учет УМК' %}</li>
+        <li class="breadcrumb-item active" aria-current="page">{% if request.user.libraryuser.school %} {{ request.user.libraryuser.school.name }} {% else %} {% trans 'Не найдено место работы' %} {% endif %}}</li>
+      </ol>
+    </nav>
+ </div>
+ <div class="container-fluid pt-5">
+    <div class="row search-block" v-if="boocks.length >= 1">
+        <div class="col-12 titles-main"><h1>{% trans 'Поиск по каталогу' %}</h1></div>
+        <div class="col-2">
+          <label class="typo__label">{% trans 'Наименования издания' %}</label>
+          <multiselect v-model="name" :options="boocks"  placeholder="{% trans 'Выберите из списка' %}" :show-labels="false"  label="name" track-by="name"></multiselect>
+        </div>
+        <div class="col-2">
+          <label class="typo__label">{% trans 'Класс' %}</label>
+          <multiselect v-model="klass" :options="klasss"  placeholder="{% trans 'Выберите из списка' %}" :show-labels="false"  label="name" track-by="name"></multiselect>
+        </div>
+        <div class="col-2">
+          <label class="typo__label">{% trans 'Язык' %}</label>
+          <multiselect v-model="language" :options="languages"  placeholder="{% trans 'Выберите из списка' %}" :show-labels="false" label="name" track-by="name"></multiselect>
+        </div>
+        <div class="col-2">
+          <label class="typo__label">{% trans 'Предмет' %}</label>
+          <multiselect v-model="subject" :options="subjects"  placeholder="{% trans 'Выберите из списка' %}" :show-labels="false"  label="name" track-by="name"></multiselect>
+        </div>
+        <div class="col-2">
+          <label class="typo__label">{% trans 'Серия по годам' %}</label>
+          <multiselect v-model="series_by_year" :options="boocks"  placeholder="{% trans 'Выберите из списка' %}" :show-labels="false"  label="series_by_year" track-by="series_by_year"></multiselect>
+        </div>
+        <div class="col-2">
+            <button v-if="boocks.length >= 1" type="submit" data-hover="tooltip" data-placement="bottom" title="{% trans 'Очистить' %}" class="btn_delete btn-fcon" v-on:click="cLear()"><i class="fa fa-times" aria-hidden="true"></i></button>
+            <button v-if="boocks.length >= 1" type="submit" data-hover="tooltip" data-placement="bottom" title="{% trans 'Сохранить' %}" class="btn_adds btn-fcon " v-on:click="aAdd()"><i class="fa fa-plus-circle" aria-hidden="true"></i></button>
+        </div>
+    </div>
+    <div v-if="boocks.length >= 1">
+       <h1 >{% trans 'Заполните постановку на учет УМК' %}</h1>
+        <table v-if="boocks.length >= 1" class="responstable" id="table_id">
+            <thead>
+              <th scope="col">#</th>
+              <th scope="col">{% trans 'Класс' %}</th>
+              <th scope="col">{% trans 'Предмет' %}</th>
+              <th scope="col">{% trans 'Hазвание издания' %}</th>
+              <th scope="col">{% trans 'На руках' %}</th>
+              <th scope="col">{% trans 'На складе' %}</th>
+              <th scope="col">{% trans 'Язык' %}</th>
+              <th scope="col">{% trans 'Описание' %}</th>
+            </thead>
+            <tbody>
+              <tr
+                is="form-boocks"
+                v-for='(item, index) in filterNames'
+                :index="index"
+                :key="index"
+                :datamodel="item">
+              </tr>
+            </tbody>
+        </table>
+
+    </div>
+    <div v-else class="pt-5">
+        <div class="container" style="width: 40%; text-align: center; color: white;">
+            <div class="form_bar">
+                <div class="form_bar_img">
+                    <img src="http://www.quotemaster.org/images/66/663836f077b099fe580ad572de0ea875.jpg" alt="">
+                </div>
+                <div class="form_bar_inner">
+                    <h1 style="margin-bottom: 2.5rem;">{% trans 'Постановка на учет УМК пуста. Нажмите кнопку редактировать' %}</h1>
+                    <a href="{% url 'schol_library:head_librarian_edit' %}" class="btn_login">{% trans 'Редактировать' %}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+<script type="text/x-template" id="form-boocks">
+<tr>
+  <td scope="row">{( index + 1 )}</td>
+  <td>{(datamodel.klass )}</td>
+  <td>{(datamodel.subject )}</td>
+  <td>
+      {(datamodel.name )} <br>
+      {% trans 'Автор' %}: {(datamodel.author)} <br>
+        {% trans 'Издательство' %}: {(datamodel.publisher)} <br>
+        {% trans 'Описание УМК' %}: {(datamodel.metodology_complex)} <br>
+        {% trans 'ISBN' %}: {(datamodel.isbn)} <br>
+  </td>
+  <td>
+     <input v-model="datamodel.on_hands" type="number" name="on_hands" min="0">
+  </td>
+  <td>
+      <input name="in_warehouse" type="number" min="0" v-model="datamodel.in_warehouse">
+  </td>
+    <td>{(datamodel.language )}</td>
+  <td>{% trans 'Серия года: ' %} - {(datamodel.series_by_year )}</td>
+</tr>
+</script>
+{% endblock %}
+{% block scripts %}
+<script src="{% static 'my_js/head_librarian/head_librarian.js' %}"></script>
+{% endblock %}
+ {% endif %}

@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+    Ошибка 500 - ошибка сервера
+{% endblock %}
+{% block meta %}
+    Ошибка 500 - ошибка сервера
+{% endblock %}
+{% block content %}
+<div class="section padding-top-1st1 padding-bottom-1st1 full-height over-hide" style="
+    background-color: black;">
+		<div class="hero-center-wrap z-bigger">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-12 error-page text-center parallax-fade-top">
+						<h1>500</h1>
+						<p class="mt-3 mb-5">Произошла непредвиденная ошибка, препятствующая загрузке страницы.</p>
+						<a href="{% url 'home:index' %}" class="btn-link btn-primary mt-5"><i class="fa fa-long-arrow-left mr-2"></i>Вернуться назад</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

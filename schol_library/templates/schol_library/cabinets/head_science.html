@@ -1,0 +1,225 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load static %}
+{% if request.user.is_authenticated %}
+{% block content %}
+<section class="bg-science">
+  <h1>{% trans 'Кабинет Зам директора по учебной работе' %}</h1>
+</section>
+<div class="container">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'home:index' %}">{% trans 'Главное' %}</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{% trans 'Кабинет Зам директора по учебной работе' %}</li>
+        <li class="breadcrumb-item active" aria-current="page">{% if request.user.libraryuser.school %} {{ request.user.libraryuser.school }} {% else %} {% trans 'Не найдено место работы' %} {% endif %}</li>
+      </ol>
+    </nav>
+  <div id="token" data-token="{{ user.auth_token }}"></div>
+  <div id="appS" class="col-12">
+    <div class="row pt-5" v-model="schoolTitulForm">
+      <div class="col-2">
+         <label>Выберите класс</label>
+        <multiselect v-model="schoolTitulForm.klass" :options="klasss" placeholder="Выберите класс" :show-labels="false" label="name" track-by="name"></multiselect>
+      </div>
+      <div class="col-2">
+          <label>Литера класса</label>
+          <multiselect v-model="schoolTitulForm.liter" :options="liters" placeholder="Выберите литер" :show-labels="false" label="name" track-by="name" min="0"></multiselect>
+      </div>
+      <div class="col-2">
+        <label>Кол-во учащих</label>
+         <input class='lit-label' type="number" v-model="schoolTitulForm.students" min="0">
+      </div>
+      <div class="col-2">
+         <label>Учебный год</label>
+        <multiselect v-model="schoolTitulForm.year" :options="datas" placeholder="Учебный год " :show-labels="false" label="name" track-by="name"></multiselect>
+      </div>
+      <div class="col-2">
+         <label>Язык обучения</label>
+        <multiselect v-model="schoolTitulForm.language" :options="languages" placeholder="Язык обучения" :show-labels="false" label="name" track-by="name"></multiselect>
+      </div>
+      <div class="col-2">
+         <label>Форма обучения</label>
+        <multiselect v-model="schoolTitulForm.study_direction" :options="studyDirections" placeholder="Форма обучения" :show-labels="false" label="name" track-by="name"></multiselect>
+      </div>
+      <div class="col-2 mx-auto pt-2">
+        <button class="btn btn_plus" :disabled='!isComplete' v-on:click="aAdd()">Добавить +</button>
+      </div>
+      <div class="col-12 pt-5">
+        <table class="responstable" id="table_id">
+          <thead>
+            <th scope="col">#</th>
+            <th scope="col">{% trans 'Класс' %}</th>
+            <th scope="col">{% trans 'Литера класса' %}</th>
+            <th scope="col">{% trans 'Количество учащих' %}</th>
+            <th scope="col">{% trans 'Дата обучения' %}</th>
+            <th scope="col">{% trans 'Язык обучения' %}</th>
+            <th scope="col">{% trans 'Форма обучения' %}</th>
+            <th scope="col">{% trans 'Удалить' %}</th>
+            <th scope="col">{% trans 'Редактировать' %}</th>
+          </thead>
+
+          <tbody>
+            <tr v-for="(item, index) in schoolTitul"
+                :index="index"
+                is="blog-item"
+                :key="index"
+                :item="item"
+                :tokens="token"
+                :removefn="remove"
+                :language="languages"
+                :study="studyDirections"
+                :klass="klasss"
+                :data="datas"
+                :liters="liters"
+            >
+            </tr>
+          </tbody>
+        </table>
+        <p class="p-result">{% trans 'Всего учеников в школе' %}: {(computeMyBind())}</p>
+      </div>
+    </div>
+  </div>
+</div>
+{#  Шаблон  таблицы с кнопками   #}
+<script type="text/x-template" id="boocks-template">
+    <tr>
+        <th scope="row">{( index + 1 )}</th>
+        <td>{(item.klass.name )}</td>
+        <td>{( item.liter.name )}</td>
+        <td>{( item.students )}</td>
+        <td>{( item.year.name )}</td>
+        <td>{( item.language.name )}</td>
+        <td>{( item.study_direction.name )}</td>
+        <td>
+            <button class="btn_delete" v-on:click="removefn(index, item)">
+              {% trans 'Удалить' %}
+            </button>
+        </td>
+        <td>
+          <blog-post
+                  :token="tokens"
+                  v-if="showModal"
+                  :item="item"
+                  :liters="liters"
+                  :languages="language"
+                  :directions="study"
+                  :klasss="klass"
+                  :datas="data"
+                  @close="showModal = false"
+          >
+                <h4 slot="header">Форма редактирования</h4>
+          </blog-post>
+          <button class="btn_delete" id="show-modal" @click="showModal = true">
+            {% trans 'Редактировать' %}
+          </button>
+        </td>
+    </tr>
+</script>
+
+{#  модальное окно  #}
+<script type="text/x-template" id="modal-template">
+  <transition name="modal">
+    <div class="modal-mask">
+      <div class="modal-wrapper">
+        <div class="modal-container">
+
+          <div class="modal-header">
+            <slot name="header">
+              default header
+            </slot>
+          </div>
+
+          <div class="modal-body">
+            <slot name="body">
+                <div>
+                    <p>
+                        {% trans 'Класс' %}: {(item.klass.name)} |
+                        {% trans 'Литера' %}: {(item.liter)} |
+                        {% trans 'Кол-во учащих' %}: {(item.students)} |
+                        {% trans 'Язык обучения' %}: {(item.language.name)} |
+                        {% trans 'Учебный год' %}: {(item.year.name)} |
+                        {% trans 'Форма обчения' %}: {(item.study_direction.name)}
+                    </p>
+                </div>
+                <hr>
+                <div class="lit-space">
+                  <label class="typo__label">{% trans 'Класс' %}</label>
+                  <multiselect v-model="schoolTitulForm.klass" :options="klasss" :placeholder="item.klass.name" :show-labels="false" label="name" track-by="name"></multiselect>
+                </div>
+                <div class="lit-space">
+                  <label class="typo__label">{% trans 'Язык обучения' %}</label>
+                  <multiselect v-model="schoolTitulForm.language" :options="languages" :placeholder="item.language.name" :show-labels="false" label="name" track-by="name"></multiselect>
+                </div>
+                <div class="lit-space">
+                  <label class="typo__label">{% trans 'Учебные годы' %}</label>
+                  <multiselect v-model="schoolTitulForm.year" :options="datas" :placeholder="item.year.name" :show-labels="false" label="name" track-by="name"></multiselect>
+                </div>
+                <div class="lit-space">
+                    <label class="typo__label">{% trans 'Форма обчения' %}</label>
+                  <multiselect v-model="schoolTitulForm.study_direction" :options="directions" :placeholder="item.study_direction.name" :show-labels="false" label="name" track-by="name"></multiselect>
+                </div>
+
+                <div class="lit-space">
+                    <label class="typo__label">{% trans 'Литера класса' %}</label>
+                    <multiselect v-model="schoolTitulForm.liter" :options="liters" :placeholder="item.liter.name" :show-labels="false" label="name" track-by="name" min="0"></multiselect>
+                </div>
+                <div class="lit-space">
+                    <label class="typo__label">{% trans 'Кол-во учащих' %}</label>
+                    <input class="lit-label" type="text" :placeholder="item.students" v-model="schoolTitulForm.students" >
+                </div>
+
+            </slot>
+          </div>
+          <div class="modal-footer">
+            <slot name="footer">
+              <button class="btn_login" @click="eDit()">
+                {% trans 'Изменить' %}
+              </button>
+              <button class="btn_delete" style="padding: 10px; margin-top: 10px;" @click="$emit('close')">
+                {% trans 'Закрыть' %}
+              </button>
+            </slot>
+          </div>
+        </div>
+      </div>
+    </div>
+  </transition>
+</script>
+
+{% endblock %}
+{% block scripts %}
+<script src="{% static 'my_js/head_science/head_science.js' %}"></script>
+<script>
+  $(document).ready(function () {
+    function show_popup() {
+      $('#table_id').DataTable({
+        language: {
+          "processing": "Подождите...",
+          "search": "Поиск:",
+          "lengthMenu": "Показать _MENU_ записей",
+          "info": "Записи с _START_ до _END_ из _TOTAL_ записей",
+          "infoEmpty": "Записи с 0 до 0 из 0 записей",
+          "infoFiltered": "(отфильтровано из _MAX_ записей)",
+          "infoPostFix": "",
+          "loadingRecords": "Загрузка записей...",
+          "zeroRecords": "Записи отсутствуют.",
+          "emptyTable": "В таблице отсутствуют данные",
+          "paginate": {
+            "first": "Первая",
+            "previous": "Предыдущая",
+            "next": "Следующая",
+            "last": "Последняя"
+          },
+          "aria": {
+            "sortAscending": ": активировать для сортировки столбца по возрастанию",
+            "sortDescending": ": активировать для сортировки столбца по убыванию"
+          }
+        }
+
+      })
+    };
+    window.setTimeout(show_popup, 1000);
+  });
+</script>
+{% endblock %}
+{% endif %}

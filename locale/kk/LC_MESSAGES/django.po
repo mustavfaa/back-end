@@ -1,0 +1,1165 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-03-26 09:41+0600\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: account/models.py:10
+msgid "Нет роли"
+msgstr ""
+
+#: account/models.py:11
+msgid "Бибилотекарь"
+msgstr ""
+
+#: account/models.py:12
+msgid "Зам директора по учебной работе"
+msgstr ""
+
+#: account/models.py:13
+msgid "Зав библиотеки"
+msgstr ""
+
+#: account/models.py:18 account/models.py:66
+msgid "пользователь"
+msgstr ""
+
+#: account/models.py:19 account/models.py:54 account/models.py:67
+#: schol_library/models.py:165 schol_library/models.py:192
+#: schol_library/models.py:209 schol_library/models.py:255
+msgid "школа"
+msgstr ""
+
+#: account/models.py:27
+msgid "Портфолио Ekitaphana"
+msgstr ""
+
+#: account/models.py:28
+msgid "Портфолии Ekitaphana"
+msgstr ""
+
+#: account/models.py:48
+msgid "Нет доступа"
+msgstr ""
+
+#: account/models.py:49
+msgid "Есть доступ"
+msgstr ""
+
+#: account/models.py:55
+msgid "статус редактирования"
+msgstr ""
+
+#: account/models.py:58
+msgid "Доступ для редактирования"
+msgstr ""
+
+#: account/models.py:59
+msgid "Доступы для редактирования"
+msgstr ""
+
+#: account/models.py:68
+msgid "роль"
+msgstr ""
+
+#: account/models.py:69
+msgid "Дата назначения на должность"
+msgstr ""
+
+#: account/models.py:70
+msgid "Дата окончания на должности"
+msgstr ""
+
+#: account/models.py:73
+msgid "Журнал назначений"
+msgstr ""
+
+#: account/models.py:74
+msgid "Журналы назначении"
+msgstr ""
+
+#: account/serializers.py:34 account/serializers.py:37
+msgid "|"
+msgstr ""
+
+#: account/templates/account/dashboard.html:9
+#: schol_library/templates/schol_library/head_librarian/edit_head_librarian.html:19
+#: schol_library/templates/schol_library/head_librarian/head_librarian.html:11
+#: schol_library/templates/schol_library/head_librarian/planned_title_create.html:10
+#: schol_library/templates/schol_library/head_librarian/planned_title_list.html:10
+#: schol_library/templates/schol_library/head_librarian/role_assignment.html:9
+#: schol_library/templates/schol_library/head_science/head_science.html:9
+#: schol_library/templates/schol_library/librarian/class_list.html:9
+#: schol_library/templates/schol_library/librarian/librarian.html:13
+msgid "Рабочий стол"
+msgstr "Жұмыс үстелі"
+
+#: account/templates/account/dashboard_menu.html:9
+#: schol_library/templates/schol_library/cabinets/head_librarian.html:11
+#: schol_library/templates/schol_library/cabinets/head_librarian.html:17
+#: schol_library/templates/schol_library/head_librarian/head_librarian.html:12
+#: templates/includes/account_header.html:3
+msgid "Постановка на учет УМК"
+msgstr "ОӘК есебіне алу"
+
+#: account/templates/account/dashboard_menu.html:18
+#: schol_library/templates/schol_library/head_librarian/head_librarian.html:90
+#: templates/includes/account_header.html:4
+msgid "Редактирование УМК"
+msgstr "ОӘК өндеу"
+
+#: account/templates/account/dashboard_menu.html:26
+#: templates/includes/account_header.html:5
+msgid "Администрирование ролей"
+msgstr "Рөлдерді әкімшіліктендіру"
+
+#: account/templates/account/dashboard_menu.html:34
+#: templates/includes/account_header.html:6
+msgid "Создание планового титула школы"
+msgstr ""
+
+#: account/templates/account/dashboard_menu.html:46
+#: templates/includes/account_header.html:9
+msgid "Страница для заполнения классов"
+msgstr ""
+
+#: account/templates/account/dashboard_menu.html:58
+#: schol_library/templates/schol_library/cabinets/edit_head_librarian.html:20
+#: schol_library/templates/schol_library/cabinets/edit_head_librarian.html:30
+#: schol_library/templates/schol_library/cabinets/librarian.html:14
+#: schol_library/templates/schol_library/cabinets/librarian.html:25
+#: schol_library/templates/schol_library/head_librarian/edit_head_librarian.html:20
+#: schol_library/templates/schol_library/head_librarian/edit_head_librarian.html:26
+#: schol_library/templates/schol_library/librarian/librarian.html:14
+#: templates/includes/account_header.html:12
+msgid "Реестр УМК"
+msgstr "ОӘК тізбесі"
+
+#: account/templates/account/dashboard_menu.html:66
+#: templates/includes/account_header.html:13
+msgid "Титульный Список школы"
+msgstr "Мектептің Титул тізімі"
+
+#: ekitaphana/settings.py:122
+msgid "Russian"
+msgstr ""
+
+#: ekitaphana/settings.py:123
+msgid "Kazakhstan"
+msgstr ""
+
+#: ekitaphana/settings.py:124
+msgid "English"
+msgstr ""
+
+#: home/forms.py:9
+msgid "Password"
+msgstr ""
+
+#: home/forms.py:15
+#, python-format
+msgid ""
+"Please enter a correct %(username)s and password. Note that both fields may "
+"be case-sensitive."
+msgstr ""
+
+#: home/forms.py:18
+msgid "This account is inactive."
+msgstr ""
+
+#: home/templates/home/home.html:23
+msgid "Форма входа"
+msgstr "Кіру формасы"
+
+#: home/templates/home/home.html:28
+msgid "Войти"
+msgstr "Кіру"
+
+#: schol_library/models.py:35 schol_library/models.py:40
+msgid "Литера класса"
+msgstr "Сынып литері"
+
+#: schol_library/models.py:41
+msgid "Литеры класса"
+msgstr ""
+
+#: schol_library/models.py:48 schol_library/models.py:95
+msgid "автор"
+msgstr ""
+
+#: schol_library/models.py:51
+msgid "Автор издетельства"
+msgstr ""
+
+#: schol_library/models.py:52
+msgid "Авторы издательства"
+msgstr ""
+
+#: schol_library/models.py:59
+msgid "Название издательства"
+msgstr ""
+
+#: schol_library/models.py:63
+msgid "Издетельство"
+msgstr ""
+
+#: schol_library/models.py:64
+msgid "Издательства"
+msgstr ""
+
+#: schol_library/models.py:71
+#: schol_library/templates/schol_library/head_librarian/edit_head_librarian.html:63
+#: schol_library/templates/schol_library/librarian/librarian.html:56
+#: schol_library/templates/schol_library/librarian/librarian.html:57
+msgid "год"
+msgstr ""
+
+#: schol_library/models.py:75
+msgid "Год"
+msgstr ""
+
+#: schol_library/models.py:76
+msgid "Года"
+msgstr ""
+
+#: schol_library/models.py:85 schol_library/models.py:214
+#: schol_library/models.py:253
+msgid "класс"
+msgstr "Оқу сыныбы"
+
+msgid " класс"
+msgstr "сынып"
+
+#: schol_library/models.py:88 schol_library/models.py:233
+#: schol_library/models.py:262
+msgid "направления обучения"
+msgstr ""
+
+#: schol_library/models.py:89
+msgid "предмет"
+msgstr "пән"
+
+#: schol_library/models.py:90
+msgid "язык"
+msgstr "тілі"
+
+#: schol_library/models.py:91
+msgid "название"
+msgstr ""
+
+#: schol_library/models.py:100
+msgid "издатель"
+msgstr ""
+
+#: schol_library/models.py:106
+msgid "год издания"
+msgstr ""
+
+#: schol_library/models.py:111
+msgid "серия по годам"
+msgstr ""
+
+#: schol_library/models.py:115
+msgid "Учебно-методический комплекс"
+msgstr "Оқу-әдістемелік кешен"
+
+#: schol_library/models.py:118
+msgid "рекомендации по применению"
+msgstr ""
+
+#: schol_library/models.py:122
+msgid "цикл финансирования"
+msgstr ""
+
+#: schol_library/models.py:123
+msgid "дата поставки"
+msgstr ""
+
+#: schol_library/models.py:126
+msgid "документ поставки"
+msgstr ""
+
+#: schol_library/models.py:129
+msgid "сумма"
+msgstr ""
+
+#: schol_library/models.py:131
+msgid "дата отмены"
+msgstr ""
+
+#: schol_library/models.py:136
+msgid "причина отмены"
+msgstr ""
+
+#: schol_library/models.py:138
+msgid "претензии по качеству"
+msgstr ""
+
+#: schol_library/models.py:141
+msgid "ошибки"
+msgstr ""
+
+#: schol_library/models.py:144
+msgid "изображение"
+msgstr ""
+
+#: schol_library/models.py:148
+msgid "ISBN код"
+msgstr ""
+
+#: schol_library/models.py:154 schol_library/models.py:170
+#: schol_library/templates/schol_library/cabinets/demo.html:18
+msgid "издание"
+msgstr ""
+
+#: schol_library/models.py:155
+msgid "издания"
+msgstr ""
+
+#: schol_library/models.py:173 schol_library/models.py:193
+msgid "на руках"
+msgstr "қолда"
+
+#: schol_library/models.py:175 schol_library/models.py:194
+msgid "на складе"
+msgstr "қоймада"
+
+#: schol_library/models.py:180
+msgid "заполнил"
+msgstr ""
+
+#: schol_library/models.py:184 schol_library/models.py:185
+msgid "количество книг изданий"
+msgstr ""
+
+#: schol_library/models.py:195
+msgid "общее количество книг в школе"
+msgstr ""
+
+#: schol_library/models.py:196
+msgid "общее количество учеников"
+msgstr ""
+
+#: schol_library/models.py:217 schol_library/models.py:256
+msgid "Название класса"
+msgstr ""
+
+#: schol_library/models.py:221 schol_library/models.py:257
+msgid "количество учащихся"
+msgstr "Оқушылар саны"
+
+msgid "Количество учащихся"
+msgstr "Оқушылар саны"
+
+#: schol_library/models.py:225 schol_library/models.py:258
+#: schol_library/templates/schol_library/cabinets/head_science.html:140
+#: schol_library/templates/schol_library/head_science/head_science.html:157
+#: schol_library/templates/schol_library/librarian/class_list.html:86
+msgid "Учебный год"
+msgstr "Оқу жылы"
+
+#: schol_library/models.py:238
+msgid "Классный руководитель"
+msgstr "Сынып жетекшісi"
+
+#: schol_library/models.py:245
+msgid "Титул школы"
+msgstr ""
+
+#: schol_library/models.py:246
+msgid "Титулы школы"
+msgstr ""
+
+#: schol_library/models.py:254
+msgid "титул школы"
+msgstr ""
+
+#: schol_library/models.py:264
+msgid "плановое количество учащихся"
+msgstr ""
+
+#: schol_library/models.py:267
+msgid "плановый титул школы"
+msgstr ""
+
+#: schol_library/models.py:268
+msgid "плановый титульный список"
+msgstr ""
+
+#: schol_library/templates/schol_library/cabinets/demo.html:9
+#: schol_library/templates/schol_library/cabinets/demo_head_librarian.html:9
+#: schol_library/templates/schol_library/cabinets/edit_head_librarian.html:25
+#: schol_library/templates/schol_library/cabinets/librarian.html:20
+#: schol_library/templates/schol_library/head_librarian/demo_head_librarian.html:9
+msgid "Кабинет библиотекаря"
+msgstr ""
+
+#: schol_library/templates/schol_library/cabinets/demo.html:34
+#: schol_library/templates/schol_library/cabinets/demo.html:71
+#: schol_library/templates/schol_library/cabinets/demo_head_librarian.html:44
+#: schol_library/templates/schol_library/cabinets/demo_head_librarian.html:70
+#: schol_library/templates/schol_library/cabinets/demo_head_librarian.html:137
+#: schol_library/templates/schol_library/cabinets/edit_head_librarian.html:63
+#: schol_library/templates/schol_library/cabinets/head_librarian.html:58
+#: schol_library/templates/schol_library/cabinets/librarian.html:57
+#: schol_library/templates/schol_library/head_librarian/demo_head_librarian.html:44
+#: schol_library/templates/schol_library/head_librarian/demo_head_librarian.html:70
+#: schol_library/templates/schol_library/head_librarian/demo_head_librarian.html:137
+#: schol_library/templates/schol_library/head_librarian/edit_head_librarian.html:85
+#: schol_library/templates/schol_library/head_librarian/head_librarian.html:68
+#: schol_library/templates/schol_library/librarian/librarian.html:70
+msgid "На руках"
+msgstr "Қолда"
+
+#: schol_library/templates/schol_library/cabinets/demo.html:48
+#: schol_library/templates/schol_library/cabinets/demo_head_librarian.html:57
+#: schol_library/templates/schol_library/cabinets/demo_head_librarian.html:71
+#: schol_library/templates/schol_library/cabinets/edit_head_librarian.html:64
+#: schol_library/templates/schol_library/cabinets/head_librarian.html:59
+#: schol_library/templates/schol_library/cabinets/librarian.html:58
+#: schol_library/templates/schol_library/head_librarian/demo_head_librarian.html:57
+#: schol_library/templates/schol_library/head_librarian/demo_head_librarian.html:71
+#: schol_library/templates/schol_library/head_librarian/edit_head_librarian.html:86
+#: schol_library/templates/schol_library/head_librarian/head_librarian.html:69
+#: schol_library/templates/schol_library/librarian/librarian.html:71
+msgid "На складе"
+msgstr "Қоймада"
+
+#: schol_library/templates/schol_library/cabinets/demo.html:62
+#: schol_library/templates/schol_library/cabinets/demo_head_librarian.html:61
+#: schol_library/templates/schol_library/head_librarian/demo_head_librarian.html:61
+msgid "Добавить"
+msgstr "Қосу"
+
+#: schol_library/templates/schol_library/cabinets/demo.html:70
+msgid "Издание"
+msgstr ""
+
+
+#: schol_library/templates/schol_library/cabinets/demo.html:73
+#: schol_library/templates/schol_library/cabinets/demo.html:88
+#: schol_library/templates/schol_library/cabinets/demo_head_librarian.html:72
+#: schol_library/templates/schol_library/cabinets/demo_head_librarian.html:105
+#: schol_library/templates/schol_library/cabinets/head_science.html:57
+#: schol_library/templates/schol_library/cabinets/head_science.html:95
+#: schol_library/templates/schol_library/head_librarian/demo_head_librarian.html:72
+#: schol_library/templates/schol_library/head_librarian/demo_head_librarian.html:105
+#: schol_library/templates/schol_library/head_science/head_science.html:69
+msgid "Удалить"
+msgstr "Жою"
+
+#: schol_library/templates/schol_library/cabinets/demo.html:94
+#: schol_library/templates/schol_library/cabinets/demo_head_librarian.html:89
+#: schol_library/templates/schol_library/cabinets/edit_head_librarian.html:79
+#: schol_library/templates/schol_library/cabinets/librarian.html:73
+#: schol_library/templates/schol_library/head_librarian/demo_head_librarian.html:89
+#: schol_library/templates/schol_library/head_librarian/edit_head_librarian.html:101
+#: schol_library/templates/schol_library/librarian/librarian.html:86
+msgid "Всего на руках"
+msgstr ""
+
+
+#: schol_library/templates/schol_library/cabinets/demo_head_librarian.html:73
+#: schol_library/templates/schol_library/cabinets/demo_head_librarian.html:113
+#: schol_library/templates/schol_library/cabinets/head_librarian.html:83
+#: schol_library/templates/schol_library/cabinets/head_science.html:58
+#: schol_library/templates/schol_library/cabinets/head_science.html:113
+#: schol_library/templates/schol_library/head_librarian/demo_head_librarian.html:73
+#: schol_library/templates/schol_library/head_librarian/demo_head_librarian.html:113
+#: schol_library/templates/schol_library/head_science/head_science.html:70
+msgid "Редактировать"
+msgstr "Түзету"
+
+#: schol_library/templates/schol_library/cabinets/demo_head_librarian.html:134
+#: schol_library/templates/schol_library/head_librarian/demo_head_librarian.html:134
+msgid "Издание:"
+msgstr ""
+
+#: schol_library/templates/schol_library/cabinets/demo_head_librarian.html:150
+#: schol_library/templates/schol_library/head_librarian/demo_head_librarian.html:150
+msgid "В складе"
+msgstr ""
+
+#: schol_library/templates/schol_library/cabinets/demo_head_librarian.html:169
+#: schol_library/templates/schol_library/cabinets/head_science.html:176
+#: schol_library/templates/schol_library/head_librarian/demo_head_librarian.html:169
+#: schol_library/templates/schol_library/head_science/head_science.html:207
+msgid "Изменить"
+msgstr "Өзгерту"
+
+#: schol_library/templates/schol_library/cabinets/demo_head_librarian.html:172
+#: schol_library/templates/schol_library/cabinets/head_science.html:179
+#: schol_library/templates/schol_library/head_librarian/demo_head_librarian.html:172
+#: schol_library/templates/schol_library/head_science/head_science.html:210
+msgid "Закрыть"
+msgstr "Жабу"
+
+#: schol_library/templates/schol_library/cabinets/edit_head_librarian.html:19
+#: schol_library/templates/schol_library/cabinets/head_librarian.html:16
+#: schol_library/templates/schol_library/cabinets/head_science.html:12
+#: schol_library/templates/schol_library/cabinets/librarian.html:13
+msgid "Главное"
+msgstr ""
+
+#: schol_library/templates/schol_library/cabinets/edit_head_librarian.html:35
+#: schol_library/templates/schol_library/cabinets/edit_head_librarian.html:39
+#: schol_library/templates/schol_library/cabinets/edit_head_librarian.html:43
+#: schol_library/templates/schol_library/cabinets/edit_head_librarian.html:47
+#: schol_library/templates/schol_library/cabinets/edit_head_librarian.html:51
+#: schol_library/templates/schol_library/cabinets/head_librarian.html:27
+#: schol_library/templates/schol_library/cabinets/head_librarian.html:31
+#: schol_library/templates/schol_library/cabinets/head_librarian.html:35
+#: schol_library/templates/schol_library/cabinets/head_librarian.html:39
+#: schol_library/templates/schol_library/cabinets/head_librarian.html:43
+#: schol_library/templates/schol_library/cabinets/librarian.html:30
+#: schol_library/templates/schol_library/cabinets/librarian.html:34
+#: schol_library/templates/schol_library/cabinets/librarian.html:38
+#: schol_library/templates/schol_library/cabinets/librarian.html:42
+#: schol_library/templates/schol_library/cabinets/librarian.html:46
+#: schol_library/templates/schol_library/head_librarian/edit_head_librarian.html:31
+#: schol_library/templates/schol_library/head_librarian/edit_head_librarian.html:35
+#: schol_library/templates/schol_library/head_librarian/edit_head_librarian.html:39
+#: schol_library/templates/schol_library/head_librarian/edit_head_librarian.html:47
+#: schol_library/templates/schol_library/head_librarian/edit_head_librarian.html:51
+#: schol_library/templates/schol_library/head_librarian/planned_title_create.html:25
+#: schol_library/templates/schol_library/head_librarian/role_assignment.html:73
+#: schol_library/templates/schol_library/head_science/head_science.html:47
+#: schol_library/templates/schol_library/head_science/head_science.html:193
+#: schol_library/templates/schol_library/librarian/librarian.html:25
+#: schol_library/templates/schol_library/librarian/librarian.html:29
+#: schol_library/templates/schol_library/librarian/librarian.html:33
+#: schol_library/templates/schol_library/librarian/librarian.html:37
+#: schol_library/templates/schol_library/librarian/librarian.html:41
+msgid "Выберите из списка"
+msgstr ""
+
+#: schol_library/templates/schol_library/cabinets/edit_head_librarian.html:60
+#: schol_library/templates/schol_library/cabinets/head_librarian.html:30
+#: schol_library/templates/schol_library/cabinets/head_librarian.html:55
+#: schol_library/templates/schol_library/cabinets/head_science.html:51
+#: schol_library/templates/schol_library/cabinets/head_science.html:136
+#: schol_library/templates/schol_library/cabinets/head_science.html:146
+#: schol_library/templates/schol_library/cabinets/librarian.html:54
+#: schol_library/templates/schol_library/head_librarian/edit_head_librarian.html:81
+#: schol_library/templates/schol_library/head_librarian/head_librarian.html:22
+#: schol_library/templates/schol_library/head_librarian/head_librarian.html:65
+#: schol_library/templates/schol_library/head_librarian/planned_title_create.html:54
+#: schol_library/templates/schol_library/head_librarian/planned_title_list.html:21
+#: schol_library/templates/schol_library/head_science/head_science.html:62
+#: schol_library/templates/schol_library/head_science/head_science.html:153
+#: schol_library/templates/schol_library/head_science/head_science.html:164
+#: schol_library/templates/schol_library/librarian/class_list.html:23
+#: schol_library/templates/schol_library/librarian/class_list.html:82
+#: schol_library/templates/schol_library/librarian/class_list.html:92
+#: schol_library/templates/schol_library/librarian/librarian.html:67
+msgid "Класс"
+msgstr "Оқу сыныбы"
+
+#: schol_library/templates/schol_library/cabinets/edit_head_librarian.html:61
+#: schol_library/templates/schol_library/cabinets/head_librarian.html:38
+#: schol_library/templates/schol_library/cabinets/head_librarian.html:56
+#: schol_library/templates/schol_library/cabinets/librarian.html:55
+#: schol_library/templates/schol_library/librarian/librarian.html:68
+msgid "Предмет"
+msgstr "Пән"
+
+#: schol_library/templates/schol_library/cabinets/edit_head_librarian.html:62
+#: schol_library/templates/schol_library/cabinets/head_librarian.html:57
+msgid "Hазвание издания"
+msgstr ""
+
+
+#: schol_library/templates/schol_library/cabinets/edit_head_librarian.html:66
+#: schol_library/templates/schol_library/cabinets/head_librarian.html:61
+#: schol_library/templates/schol_library/cabinets/librarian.html:60
+#: schol_library/templates/schol_library/librarian/librarian.html:73
+msgid "Описание"
+msgstr ""
+
+#: schol_library/templates/schol_library/cabinets/edit_head_librarian.html:81
+#: schol_library/templates/schol_library/cabinets/librarian.html:75
+#: schol_library/templates/schol_library/head_librarian/edit_head_librarian.html:103
+#: schol_library/templates/schol_library/librarian/librarian.html:88
+msgid "Всего"
+msgstr "Барлығы"
+
+#: schol_library/templates/schol_library/cabinets/edit_head_librarian.html:96
+#: schol_library/templates/schol_library/cabinets/head_librarian.html:98
+#: schol_library/templates/schol_library/head_librarian/edit_head_librarian.html:58
+#: schol_library/templates/schol_library/head_librarian/edit_head_librarian.html:59
+#: schol_library/templates/schol_library/librarian/librarian.html:44
+#: schol_library/templates/schol_library/librarian/librarian.html:45
+#: schol_library/templates/schol_library/librarian/librarian.html:49
+msgid "Автор"
+msgstr "Автор"
+
+#: schol_library/templates/schol_library/cabinets/edit_head_librarian.html:97
+#: schol_library/templates/schol_library/cabinets/head_librarian.html:99
+#: schol_library/templates/schol_library/head_librarian/edit_head_librarian.html:54
+#: schol_library/templates/schol_library/head_librarian/edit_head_librarian.html:55
+#: schol_library/templates/schol_library/librarian/librarian.html:48
+msgid "Издательство"
+msgstr "Баспасы"
+
+#: schol_library/templates/schol_library/cabinets/edit_head_librarian.html:98
+#: schol_library/templates/schol_library/cabinets/head_librarian.html:100
+msgid "Описание УМК"
+msgstr ""
+
+#: schol_library/templates/schol_library/cabinets/edit_head_librarian.html:99
+#: schol_library/templates/schol_library/cabinets/head_librarian.html:101
+#: schol_library/templates/schol_library/cabinets/librarian.html:89
+#: schol_library/templates/schol_library/head_librarian/edit_head_librarian.html:119
+#: schol_library/templates/schol_library/head_librarian/head_librarian.html:104
+#: schol_library/templates/schol_library/librarian/librarian.html:104
+msgid "ISBN"
+msgstr ""
+
+#: schol_library/templates/schol_library/cabinets/edit_head_librarian.html:108
+#: schol_library/templates/schol_library/cabinets/head_librarian.html:110
+#: schol_library/templates/schol_library/cabinets/librarian.html:94
+#: schol_library/templates/schol_library/librarian/librarian.html:109
+msgid "Серия года: "
+msgstr ""
+
+#: schol_library/templates/schol_library/cabinets/head_librarian.html:24
+msgid "Поиск по каталогу"
+msgstr ""
+
+#: schol_library/templates/schol_library/cabinets/head_librarian.html:26
+#: schol_library/templates/schol_library/head_librarian/edit_head_librarian.html:50
+msgid "Наименования издания"
+msgstr "Басылым атауы"
+
+#: schol_library/templates/schol_library/cabinets/head_librarian.html:42
+msgid "Серия по годам"
+msgstr ""
+
+#: schol_library/templates/schol_library/cabinets/head_librarian.html:46
+#: schol_library/templates/schol_library/head_librarian/edit_head_librarian.html:66
+#: schol_library/templates/schol_library/librarian/librarian.html:60
+msgid "Очистить"
+msgstr ""
+
+#: schol_library/templates/schol_library/cabinets/head_librarian.html:47
+#: schol_library/templates/schol_library/head_librarian/edit_head_librarian.html:69
+msgid "Сохранить"
+msgstr "Сақтау"
+
+#: schol_library/templates/schol_library/cabinets/head_librarian.html:51
+msgid "Заполните постановку на учет УМК"
+msgstr ""
+
+#: schol_library/templates/schol_library/cabinets/head_librarian.html:82
+msgid "Постановка на учет УМК пуста. Нажмите кнопку редактировать"
+msgstr ""
+
+#: schol_library/templates/schol_library/cabinets/head_science.html:7
+#: schol_library/templates/schol_library/cabinets/head_science.html:13
+#: schol_library/templates/schol_library/head_science/head_science.html:10
+msgid "Кабинет Зам директора по учебной работе"
+msgstr ""
+
+#: schol_library/templates/schol_library/cabinets/head_science.html:52
+#: schol_library/templates/schol_library/cabinets/head_science.html:163
+#: schol_library/templates/schol_library/head_science/head_science.html:63
+#: schol_library/templates/schol_library/head_science/head_science.html:181
+#: schol_library/templates/schol_library/librarian/class_list.html:24
+#: schol_library/templates/schol_library/librarian/class_list.html:109
+
+
+#: schol_library/templates/schol_library/cabinets/head_science.html:53
+#: schol_library/templates/schol_library/head_science/head_science.html:64
+#: schol_library/templates/schol_library/librarian/class_list.html:25
+msgid "Количество учащих"
+msgstr "Оқушылар саны"
+
+#: schol_library/templates/schol_library/cabinets/head_science.html:54
+#: schol_library/templates/schol_library/head_science/head_science.html:65
+#: schol_library/templates/schol_library/librarian/class_list.html:26
+msgid "Дата обучения"
+msgstr ""
+
+#: schol_library/templates/schol_library/cabinets/head_science.html:55
+#: schol_library/templates/schol_library/cabinets/head_science.html:139
+#: schol_library/templates/schol_library/cabinets/head_science.html:150
+#: schol_library/templates/schol_library/head_science/head_science.html:66
+#: schol_library/templates/schol_library/head_science/head_science.html:156
+#: schol_library/templates/schol_library/head_science/head_science.html:168
+#: schol_library/templates/schol_library/librarian/class_list.html:27
+#: schol_library/templates/schol_library/librarian/class_list.html:85
+#: schol_library/templates/schol_library/librarian/class_list.html:96
+msgid "Язык обучения"
+msgstr "Оқу тілі"
+
+#: schol_library/templates/schol_library/cabinets/head_science.html:56
+#: schol_library/templates/schol_library/head_science/head_science.html:67
+#: schol_library/templates/schol_library/librarian/class_list.html:28
+msgid "Форма обучения"
+msgstr "Оқыту нысаны"
+
+#: schol_library/templates/schol_library/cabinets/head_science.html:78
+#: schol_library/templates/schol_library/head_science/head_science.html:92
+#: schol_library/templates/schol_library/librarian/class_list.html:47
+msgid "Всего учеников в школе"
+msgstr "Барлық оқушы мектепте"
+
+#: schol_library/templates/schol_library/cabinets/head_science.html:137
+#: schol_library/templates/schol_library/head_science/head_science.html:154
+#: schol_library/templates/schol_library/librarian/class_list.html:83
+msgid "Литера"
+msgstr "Литері"
+
+#: schol_library/templates/schol_library/cabinets/head_science.html:138
+#: schol_library/templates/schol_library/cabinets/head_science.html:167
+#: schol_library/templates/schol_library/head_science/head_science.html:155
+#: schol_library/templates/schol_library/head_science/head_science.html:185
+#: schol_library/templates/schol_library/librarian/class_list.html:84
+#: schol_library/templates/schol_library/librarian/class_list.html:113
+msgid "Кол-во учащих"
+msgstr ""
+
+#: schol_library/templates/schol_library/cabinets/head_science.html:141
+#: schol_library/templates/schol_library/cabinets/head_science.html:158
+#: schol_library/templates/schol_library/head_science/head_science.html:158
+#: schol_library/templates/schol_library/head_science/head_science.html:176
+#: schol_library/templates/schol_library/librarian/class_list.html:87
+#: schol_library/templates/schol_library/librarian/class_list.html:104
+msgid "Форма обчения"
+msgstr ""
+
+#: schol_library/templates/schol_library/cabinets/head_science.html:154
+#: schol_library/templates/schol_library/head_science/head_science.html:172
+#: schol_library/templates/schol_library/librarian/class_list.html:100
+msgid "Учебные годы"
+msgstr ""
+
+#: schol_library/templates/schol_library/cabinets/librarian.html:56
+#: schol_library/templates/schol_library/librarian/librarian.html:69
+msgid "Hазвание"
+msgstr ""
+
+#: schol_library/templates/schol_library/head_librarian/edit_head_librarian.html:30
+msgid "Учебный класс"
+msgstr "Оқу сыныбы "
+
+#: schol_library/templates/schol_library/head_librarian/edit_head_librarian.html:34
+#: schol_library/templates/schol_library/head_librarian/edit_head_librarian.html:82
+#: schol_library/templates/schol_library/head_librarian/head_librarian.html:25
+#: schol_library/templates/schol_library/head_librarian/head_librarian.html:66
+msgid "Учебная дисциплина"
+msgstr "Оқу пәні"
+
+#: schol_library/templates/schol_library/head_librarian/edit_head_librarian.html:38
+#: schol_library/templates/schol_library/head_librarian/edit_head_librarian.html:83
+#: schol_library/templates/schol_library/head_librarian/head_librarian.html:28
+#: schol_library/templates/schol_library/head_librarian/head_librarian.html:70
+msgid "Язык издания"
+msgstr "Басылым тілі"
+
+#: schol_library/templates/schol_library/head_librarian/edit_head_librarian.html:42
+#: schol_library/templates/schol_library/head_librarian/head_librarian.html:31
+msgid "УМК"
+msgstr "Оқу-әдістемелік кешен"
+
+#: schol_library/templates/schol_library/head_librarian/edit_head_librarian.html:43
+msgid "Выберите..."
+msgstr ""
+
+#: schol_library/templates/schol_library/head_librarian/edit_head_librarian.html:46
+#: schol_library/templates/schol_library/head_librarian/head_librarian.html:34
+msgid "Направление обучения"
+msgstr "Оқу бағыты"
+
+#: schol_library/templates/schol_library/head_librarian/edit_head_librarian.html:62
+#: schol_library/templates/schol_library/head_librarian/head_librarian.html:46
+msgid "Год издания"
+msgstr "Жарияланған жылы"
+
+#: schol_library/templates/schol_library/head_librarian/edit_head_librarian.html:73
+#: schol_library/templates/schol_library/head_librarian/head_librarian.html:56
+msgid "Успешно сохранено"
+msgstr "Сәтті сақталды!"
+
+#: schol_library/templates/schol_library/head_librarian/edit_head_librarian.html:84
+#: schol_library/templates/schol_library/head_librarian/head_librarian.html:37
+#: schol_library/templates/schol_library/head_librarian/head_librarian.html:67
+msgid "Наименование издания"
+msgstr "Басылым атауы"
+
+#: schol_library/templates/schol_library/head_librarian/edit_head_librarian.html:87
+#: schol_library/templates/schol_library/head_librarian/head_librarian.html:71
+msgid "Серия Год"
+msgstr ""
+
+#: schol_library/templates/schol_library/head_librarian/edit_head_librarian.html:102
+msgid "Всего на складе"
+msgstr ""
+
+#: schol_library/templates/schol_library/head_librarian/head_librarian.html:40
+#, fuzzy
+#| msgid "Издательство"
+msgid "Издательство.."
+msgstr "Баспасы"
+
+#: schol_library/templates/schol_library/head_librarian/head_librarian.html:43
+msgid "Автор.."
+msgstr ""
+
+#: schol_library/templates/schol_library/head_librarian/head_librarian.html:49
+msgid "Очистить фильтр"
+msgstr "Сүзгіні тазалаңыз"
+
+#: schol_library/templates/schol_library/head_librarian/head_librarian.html:51
+msgid "Внести в реестр УМК"
+msgstr "ОӘК тізілімінде тіркеу"
+
+#: schol_library/templates/schol_library/head_librarian/head_librarian.html:89
+msgid "УМК Пуста. Возможно вы заполнили перейдите по ссылке ниже"
+msgstr ""
+
+#: schol_library/templates/schol_library/head_librarian/planned_title_create.html:11
+#: schol_library/templates/schol_library/head_librarian/planned_title_list.html:11
+msgid "Создание планового Титульного списка школы"
+msgstr "Мектептің жоспарлы Титул тізімін жасау"
+
+#: schol_library/templates/schol_library/head_librarian/planned_title_create.html:24
+msgid "Какой учебный год"
+msgstr ""
+
+#: schol_library/templates/schol_library/head_librarian/planned_title_create.html:28
+#, python-format
+msgid "увеличения"
+msgstr "көбеюі"
+
+#: schol_library/templates/schol_library/head_librarian/planned_title_create.html:29
+msgid "Введите данные"
+msgstr ""
+
+#: schol_library/templates/schol_library/head_librarian/planned_title_create.html:32
+msgid "Создать плановый титул"
+msgstr "Жоспарлы титул жасау"
+
+#: schol_library/templates/schol_library/head_librarian/planned_title_create.html:33
+msgid "Отправить"
+msgstr ""
+
+#: schol_library/templates/schol_library/head_librarian/planned_title_create.html:56
+#: schol_library/templates/schol_library/head_librarian/planned_title_list.html:23
+msgid "Литер"
+msgstr "Литері"
+
+#: schol_library/templates/schol_library/head_librarian/planned_title_create.html:57
+#: schol_library/templates/schol_library/head_librarian/planned_title_list.html:24
+msgid "Базовое количество"
+msgstr "Базалық саны"
+
+#: schol_library/templates/schol_library/head_librarian/planned_title_create.html:58
+#: schol_library/templates/schol_library/head_librarian/planned_title_list.html:25
+msgid "Плановое количество"
+msgstr "Жоспарлы саны"
+
+#: schol_library/templates/schol_library/head_librarian/planned_title_create.html:59
+#: schol_library/templates/schol_library/head_librarian/planned_title_list.html:26
+#, python-format
+msgid "Увеличения"
+msgstr "Көбеюі"
+
+#: schol_library/templates/schol_library/head_librarian/planned_title_create.html:84
+#: schol_library/templates/schol_library/head_librarian/planned_title_create.html:86
+#: schol_library/templates/schol_library/head_librarian/planned_title_list.html:37
+#: schol_library/templates/schol_library/head_librarian/planned_title_list.html:38
+msgid "нет данныех"
+msgstr ""
+
+#: schol_library/templates/schol_library/head_librarian/role_assignment.html:19
+msgid "Роль"
+msgstr ""
+
+#: schol_library/templates/schol_library/head_librarian/role_assignment.html:20
+msgid "Фото"
+msgstr ""
+
+#: schol_library/templates/schol_library/head_librarian/role_assignment.html:21
+msgid "ФИО"
+msgstr ""
+
+#: schol_library/templates/schol_library/head_librarian/role_assignment.html:22
+msgid "Логин"
+msgstr ""
+
+#: schol_library/templates/schol_library/head_librarian/role_assignment.html:23
+msgid "Дата назначения"
+msgstr ""
+
+#: schol_library/templates/schol_library/head_librarian/role_assignment.html:24
+msgid "Дата окончания"
+msgstr ""
+
+#: schol_library/templates/schol_library/head_librarian/role_assignment.html:33
+msgid "Нету роли"
+msgstr ""
+
+#: schol_library/templates/schol_library/head_librarian/role_assignment.html:53
+msgid "Завершить полномочия"
+msgstr ""
+
+#: schol_library/templates/schol_library/head_librarian/role_assignment.html:59
+msgid "Назначение на должность зам. директора по учебной работе для учреждения"
+msgstr ""
+
+#: schol_library/templates/schol_library/head_librarian/role_assignment.html:84
+msgid "Выберите роль"
+msgstr ""
+
+#: schol_library/templates/schol_library/head_librarian/role_assignment.html:93
+msgid "Назначить"
+msgstr ""
+
+#: schol_library/templates/schol_library/head_science/head_science.html:68
+#: schol_library/templates/schol_library/head_science/head_science.html:159
+msgid "Классный руковадитель"
+msgstr "Сынып жетекшісi"
+
+#: schol_library/templates/schol_library/librarian/class_list.html:10
+msgid "Список классов школы"
+msgstr ""
+
+#: schol_library/templates/schol_library/librarian/librarian.html:21
+msgid "Список книг в школе"
+msgstr ""
+
+#: schol_library/templates/schol_library/librarian/librarian.html:52
+#: schol_library/templates/schol_library/librarian/librarian.html:53
+msgid "серия"
+msgstr ""
+
+#: templates/base.html:15
+msgid "единая база учебных книг"
+msgstr ""
+
+#: templates/includes/header.html:35
+msgid "Емайл"
+msgstr ""
+
+#: templates/includes/header.html:43
+msgid "Выход"
+msgstr ""
+
+
+msgid "Формирование Титульного списка школы"
+msgstr "Мектептің Титул тізімін қалыптастыру"
+#~ msgid "Дисциплина"
+#~ msgstr "Оқу пәні"
+
+msgid "Для сохранения нужно заполнить оба поля! Например: одно поле 5  другое 0"
+msgstr "Сақтау үшін екі жолды толтыру керек! Мысалы: бiреуiн 5 деп толтырасыз, басқасын 0 деп"
+
+msgid "Выйти"
+msgstr "Шығу"
+
+msgid "Пароль"
+msgstr "Құпия сөз"
+
+msgid "Имя пользователя"
+msgstr "Қолданушының аты"
+
+msgid "Комплектование портфеля УМК"
+msgstr "ОӘК портфелін жинақтау"
+
+msgid "Генерирование Заказа УМК"
+msgstr "ОӘК тапсырысын жасау"
+
+msgid "Добавить Класс-комплект"
+msgstr "Сынып жинағын қосу"
+
+msgid "Добавить класс-комплект"
+msgstr "Сынып жинағын қосу"
+
+msgid "Печать"
+msgstr "Басу"
+
+msgid "Видимость колонок"
+msgstr "Бағаналарды көрінуі"
+
+msgid "Экспорт в Excel"
+msgstr "Excel экспортау"
+
+msgid "Поиск"
+msgstr "Іздеу"
+
+msgid "Всего учащихся"
+msgstr "Барлық оқушылар"
+
+msgid "в 1-4 классах"
+msgstr "1-4 сыныптарда"
+
+msgid "в 5-9 классах"
+msgstr "5-9 сыныптарда"
+
+msgid "в 10-11 классах"
+msgstr "10-11 сыныптарда"
+
+msgid "Казахский язык обучения"
+msgstr "Қазақ тілінде оқыту"
+
+msgid "Русский язык обучения"
+msgstr "Орыс тілінде оқыту"
+
+msgid "Класс-комплектов"
+msgstr "Жинақталған сыныптарды"
+
+msgid "Учащихся"
+msgstr "Оқушыларды"
+
+msgid "учащихся"
+msgstr "Оқушыларды"
+
+msgid "на 2018-2019 учебный год"
+msgstr "2018-2019 оқу жылына"
+
+msgid "комплектовать"
+msgstr "жинақтау"
+
+msgid "Комплектовать"
+msgstr "Жинақтау"
+
+msgid "№ Параллели классов"
+msgstr "Сынып параллелінің №"
+
+msgid "Литеры классов через"
+msgstr "Сынып литерлеры, арқылы"
+
+msgid "количество учащихся м+ж"
+msgstr "оқушылар саны, е+ә"
+
+msgid "Перечень изданий"
+msgstr "Басылым тізбесі"
+
+msgid "количество"
+msgstr "саны"
+
+msgid "Количество"
+msgstr "Саны"
+
+msgid "Сохранить портфель"
+msgstr "Портфелді сақтау"
+
+msgid "Завершить комплектование"
+msgstr "Жинақтауды аяқтау"
+
+msgid "Возобновить комплектование"
+msgstr "Жинақтауды жаңарту"
+
+msgid "ЕМН"
+msgstr "ЖМБ"
+
+msgid "ОГН"
+msgstr "ҚГБ"
+
+msgid "Коррекционное направление"
+msgstr "Түзеу бағыты"
+
+msgid "Общее направление"
+msgstr "Жалпы бағыты"
+
+msgid "Форма редактирования"
+msgstr "Түзету нысаны"
+
+msgid "Кол-во учащихся"
+msgstr "Оқушылар саны"
+
+msgid "Завершить"
+msgstr "Аяқтау"
+
+msgid "Назад"
+msgstr "Артқа"
+
+msgid "Язык"
+msgstr "Тілі"
+
+msgid "Создать портфель"
+msgstr "Портфелді жасау"
+
+msgid "Комментарии"
+msgstr "Пікірлер"
+
+msgid "Распечатать"
+msgstr "Басып шығару"
+
+msgid "Закрыть портфель"
+msgstr "Портфелді жабу"
+
+msgid "Дополнить портфель"
+msgstr "Портфелді толықтыру"
+
+msgid "Процент обеспечения"
+msgstr "Қамтамасыз ету пайызы"
+
+msgid "Выбрать"
+msgstr "Таңдау"
+
+msgid "Издания в портфеле"
+msgstr "Портфелдегі басылымдар"
+
+msgid "Пополнение портфеля"
+msgstr "Портфелді толықтыру"
+
+msgid "Учебные дисциплины"
+msgstr "Оқу пәндері"
+
+msgid "Требуется указать литера класса"
+msgstr "Сынып әріптерді көрсету талап етіледі"
+
+msgid "Требуется указать направление обучения"
+msgstr "Оқыту бағытын көрсету "
+
+msgid "Казахский язык"
+msgstr "Қазақ тілі"
+
+msgid "Азербайджанский язык"
+msgstr "Әзірбайжан тілі"
+
+msgid "Английский язык"
+msgstr "Ағылшын тілі"
+
+msgid "Немецкий"
+msgstr "Неміс тілі"
+
+msgid "Русский язык"
+msgstr "Орыс тілі"
+
+msgid "Планируемый учебный год"
+msgstr "Жоспарланған оқу жылы"
+
+msgid "На базе учебного года"
+msgstr "Оқу жылы"
+
+msgid "удалить"
+msgstr "жою"
+
+msgid "книг"
+msgstr "кітап"
+
+msgid "Есть в портфеле"
+msgstr "Портфелінде бар"
+
+msgid "Добавить класс - комплект"
+msgstr "Сынып жинағын қосу"
+
+msgid "Создание класс-комплекта"
+msgstr "Сынып жинағын жасау"

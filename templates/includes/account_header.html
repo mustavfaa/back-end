@@ -1,0 +1,25 @@
+{% load i18n %}
+{% if error == 0 %}
+    {% if 1 in list_groups %}
+    <a href="{% url 'schol_library:head_librarian' %}">{% trans 'Постановка на учет УМК' %}</a>
+    <a href="{% url 'schol_library:hl_edit_books' %}">{% trans 'Редактирование УМК' %}</a>
+    <a href="{% url 'schol_library:librarian' %}">{% trans 'Реестр УМК' %}</a>
+    <a href="{% url 'schol_library:hl_consolidated_registry' %}">{% trans 'Генерирование Заказа УМК' %}</a>
+    <a href="{% url 'schol_library:hl_invoices' %}">{% trans 'Накладная' %}</a>
+    {% endif %}
+    {% if 2 in list_groups %}
+    <a href="{% url 'schol_library:head_science' %}">{% trans 'Формирование Титульного списка школы' %}</a>
+    <a href="{% url 'schol_library:l_class_list' %}">{% trans 'Титульный Список школы' %}</a>
+    <a href="{% url 'schol_library:hl_planned_title_create' %}">{% trans 'Создание планового Титульного списка школы' %}</a>
+    <a href="{% url 'schol_library:hl_briefcase' %}">{% trans "Комплектование портфеля УМК" %}</a>
+    <a href="#">{% trans "Генерирование Заказа УМК" %}</a>
+    {% endif %}
+    {% if 3 in list_groups %}
+    <a href="{% url 'schol_library:hl_edit_role' %}">{% trans 'Администрирование ролей' %}</a>
+        {% if 1 not in list_groups %}
+            <a href="{% url 'schol_library:librarian' %}">{% trans 'Реестр УМК' %}</a>
+        {% endif %}
+    {% endif %}
+{% else %}
+<p>{% trans 'Нет такого пользователя' %}</p>
+{% endif %}
